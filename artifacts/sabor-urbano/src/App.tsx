@@ -25,7 +25,7 @@ const queryClient = new QueryClient();
 const brandImage =
   'https://res.cloudinary.com/dsleqvjr/image/upload/v1788479431/ChatGPT_Image_12_jul_2026_21_06_42.png';
 const whatsappUrl =
-  'https://wa.me/56935950592?text=Hola%2C%20quiero%20reservar%20un%20servicio%20en%20SPA%20CAR%20WASH%20SANTIAGO.';
+  'https://wa.me/56961789412?text=Hola%2C%20quiero%20reservar%20un%20servicio%20en%20SPA%20CAR%20WASH%20SANTIAGO.';
 
 type PriceRow = {
   name: string;
@@ -114,7 +114,7 @@ function Header({ onBook }: { onBook: () => void }) {
             className="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#f7fbff]/75 transition-colors hover:text-[#b9e769] xl:flex"
             data-testid="link-whatsapp-header"
           >
-            <Phone size={14} /> +56 9 3595 0592
+            <Phone size={14} /> +56 9 6178 9412
           </a>
           <button
             onClick={onBook}
@@ -315,7 +315,7 @@ function Reservation() {
           <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 bg-[#07121e] px-7 py-5 text-[11px] font-bold uppercase tracking-[.18em] text-[#f7fbff] transition-colors hover:bg-[#168fe0]" data-testid="button-reserve-whatsapp">
             Reservar ahora por WhatsApp <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
           </a>
-          <p className="mt-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#06111c]/55"><Phone size={14} /> +56 9 3595 0592</p>
+          <p className="mt-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#06111c]/55"><Phone size={14} /> +56 9 6178 9412</p>
         </div>
       </div>
     </section>
@@ -341,7 +341,7 @@ function Location() {
             <MapPin size={17} className="mt-0.5 text-[#b9e769]" /><span>Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
           </a>
           <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#b9e769]" data-testid="link-whatsapp-contact">
-            <Phone size={17} className="text-[#b9e769]" /> +56 9 3595 0592 · WhatsApp
+            <Phone size={17} className="text-[#b9e769]" /> +56 9 6178 9412 · WhatsApp
           </a>
           <p className="flex items-start gap-4"><Clock3 size={17} className="mt-0.5 text-[#b9e769]" /><span>Reserva tu hora por WhatsApp<br />y llega directo a nuestro Nivel -1</span></p>
         </div>
@@ -361,7 +361,7 @@ function Footer() {
         <div>
           <p className="eyebrow text-[#168fe0]">Reserva directa</p>
           <p className="mt-4 max-w-[290px] text-sm leading-6 text-[#0b1a29]/65">Las reservas se realizan únicamente por WhatsApp.</p>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-5 flex w-fit items-center gap-2 text-sm font-bold text-[#168fe0] transition-colors hover:text-[#0b1a29]" data-testid="link-footer-whatsapp"><Phone size={16} /> +56 9 3595 0592</a>
+          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-5 flex w-fit items-center gap-2 text-sm font-bold text-[#168fe0] transition-colors hover:text-[#0b1a29]" data-testid="link-footer-whatsapp"><Phone size={16} /> +56 9 6178 9412</a>
         </div>
         <div className="flex items-start gap-5 md:justify-self-end">
           <a href="#inicio" className="focus-ring text-[10px] uppercase tracking-[.15em] text-[#0b1a29]/65 transition-colors hover:text-[#168fe0]" data-testid="link-back-top">Volver arriba ↑</a>
