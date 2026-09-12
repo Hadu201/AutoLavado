@@ -186,7 +186,7 @@ function Hero({ onBook }: { onBook: () => void }) {
             </a>
           </div>
         </div>
-        <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex text-[#ebeff2] border-t-[#6eaee6] border-r-[#6eaee6] border-b-[#6eaee6] border-l-[#6eaee6]" data-testid="link-scroll-reservation">
+        <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex border-t-[#6eaee6] border-r-[#6eaee6] border-b-[#6eaee6] border-l-[#6eaee6] text-[#3f8bcc]" data-testid="link-scroll-reservation">
           Asegura tu hora <ArrowDown size={15} className="text-[#ff7a70]" />
         </button>
       </div>
