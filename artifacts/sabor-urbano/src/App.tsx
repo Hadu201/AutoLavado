@@ -215,7 +215,7 @@ function Experience() {
           <p className="mt-9 max-w-[620px] text-lg leading-8 text-[#1d1d22]/65">
             En SPA CAR WASH SANTIAGO trabajamos para que tu vehículo se sienta nuevo otra vez. Estamos ubicados por la entrada de Arauco, en el Nivel -1 de Mall Plaza de los Ríos, Valdivia.
           </p>
-          <div className="mt-12 grid max-w-[600px] grid-cols-2 gap-8 border-t border-[#1d1d22]/15 pt-7 sm:grid-cols-3">
+          <div className="mt-12 grid max-w-[600px] grid-cols-2 gap-8 border-t border-[#1d1d22]/15 pt-7 sm:grid-cols-3 text-[#6eaee6]">
             <div><p className="display text-4xl text-[#b51f30]">100%</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Satisfacción</p></div>
             <div><p className="display text-4xl text-[#b51f30]">Nivel -1</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Mall Plaza</p></div>
             <div><p className="display text-4xl text-[#b51f30]">Valdivia</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Estamos aquí</p></div>
