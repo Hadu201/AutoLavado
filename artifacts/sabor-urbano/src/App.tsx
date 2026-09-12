@@ -187,7 +187,8 @@ function Hero({ onBook }: { onBook: () => void }) {
           </div>
         </div>
         <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex border-t-[#6eaee6] border-r-[#6eaee6] border-b-[#6eaee6] border-l-[#6eaee6] text-[#eef2f6]" data-testid="link-scroll-reservation">
-          Asegura tu hora <ArrowDown size={15} className="text-[#ff7a70]" />
+          
+            Asegura tu hora <ArrowDown size={15} className="text-[#589edb]" />
         </button>
       </div>
     </section>
@@ -225,8 +226,7 @@ function Experience() {
       <div id="compromisos" className="mx-auto mt-24 grid max-w-[1200px] gap-px bg-[#1d1d22]/15 md:grid-cols-3">
         {points.map(({ icon: Icon, number, title, text }, index) => (
           <article key={number} className="reveal bg-[#e4edf4] p-7 md:p-9" style={{ transitionDelay: `${index * 90}ms` }} data-testid={`card-promise-${number}`}>
-            <div className="flex items-center justify-between text-[#589edb]"><span className="display text-4xl text-[#b51f30]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#b51f30]" /></div>
-            <h3 className="display mt-14 text-3xl">{title}</h3>
+            <div className="flex items-center justify-between text-[#589edb]"><span className="display text-4xl text-[#589edb]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#589edb]" /></div>            <h3 className="display mt-14 text-3xl">{title}</h3>
             <p className="mt-3 text-sm leading-6 text-[#1d1d22]/60">{text}</p>
           </article>
         ))}
@@ -337,13 +337,13 @@ function Location() {
         <p className="eyebrow text-[#ff7a70]">05 — Encuéntranos</p>
         <h2 className="display mt-5 text-[clamp(3rem,6vw,6rem)] leading-[.8] tracking-[-.05em]">Por la entrada<br />de <em className="text-[#e33845]">Arauco.</em></h2>
         <div className="mt-12 space-y-6 text-sm">
-          <a href="https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia" target="_blank" rel="noreferrer" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#ff7a70] text-[#0876bd] border-t-[#f7fbff] border-r-[#f7fbff] border-b-[#f7fbff] border-l-[#f7fbff]" data-testid="link-map">
-            <MapPin size={17} className="mt-0.5 text-[#ff7a70]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
+          <a href="https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia" target="_blank" rel="noreferrer" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#589edb] text-[#0876bd] border-t-[#f7fbff] border-r-[#f7fbff] border-b-[#f7fbff] border-l-[#f7fbff]" data-testid="link-map">
+            <MapPin size={17} className="mt-0.5 text-[#589edb]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
           </a>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#ff7a70]" data-testid="link-whatsapp-contact">
-            <Phone size={17} className="text-[#ff7a70]" /> +56 9 6178 9412 · WhatsApp
+          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#589edb]" data-testid="link-whatsapp-contact">
+            <Phone size={17} className="text-[#589edb]" /> +56 9 6178 9412 · WhatsApp
           </a>
-          <p className="flex items-start gap-4"><Clock3 size={17} className="mt-0.5 text-[#ff7a70]" /><span>Reserva tu hora por WhatsApp<br />y llega directo a nuestro Nivel -1</span></p>
+          <p className="flex items-start gap-4"><Clock3 size={17} className="mt-0.5 text-[#589edb]" /><span>Reserva tu hora por WhatsApp<br />y llega directo a nuestro Nivel -1</span></p>
         </div>
       </div>
     </section>
