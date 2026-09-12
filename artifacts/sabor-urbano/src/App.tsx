@@ -179,7 +179,7 @@ function Hero({ onBook }: { onBook: () => void }) {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="group flex w-fit items-center gap-3 border border-[#e33845] px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#e33845] hover:text-[#ffffff] border-t-[#589edb] border-r-[#589edb] border-b-[#589edb] border-l-[#589edb]"
+              className="group flex w-fit items-center gap-3 border border-[#e33845] px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#e33845] hover:text-[#ffffff] border-t-[#589edb] border-r-[#589edb] border-b-[#589edb] border-l-[#589edb] bg-[#589edb]"
               data-testid="button-reserve-hero"
             >
               Reserva ahora <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
