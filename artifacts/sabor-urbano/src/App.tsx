@@ -92,7 +92,7 @@ function Header({ onBook }: { onBook: () => void }) {
       <div className="nav-inner mx-auto flex max-w-[1400px] items-center justify-between px-5 py-5 md:px-10 md:py-7">
         <a href="#inicio" onClick={close} className="focus-ring flex items-center gap-3" data-testid="link-home">
           <img src={brandImage} alt="SPA CAR WASH SANTIAGO" className="brand-logo h-9 w-14 object-contain" />
-          <span className="hidden text-[11px] font-bold uppercase tracking-[.19em] sm:block">SPA CAR WASH SANTIAGO</span>
+          <span className="hidden text-[11px] font-bold uppercase tracking-[.19em] sm:block">Santiago spa car wash</span>
         </a>
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Navegación principal">
           {nav.map((item) => (
@@ -169,7 +169,7 @@ function Hero({ onBook }: { onBook: () => void }) {
         <div className="hero-copy max-w-[930px] reveal">
           <p className="eyebrow mb-6 text-[#ff7a70]">Cuidado automotriz · Mall Plaza de los Ríos</p>
           <h1 className="display max-w-[930px] text-[clamp(4rem,12vw,11rem)] leading-[.78] tracking-[-.055em]">
-            ¡Tu auto en las<br /><em className="text-[#e33845]">mejores manos!</em>
+            ¡Tu auto en las<br /><em className="text-[#eef2f6]">mejores manos!</em>
           </h1>
           <div className="mt-10 flex flex-col gap-7 sm:flex-row sm:items-center">
             <p className="max-w-[330px] text-sm leading-6 text-[#f7fbff]/75">
