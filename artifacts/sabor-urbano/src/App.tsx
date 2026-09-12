@@ -225,7 +225,7 @@ function Experience() {
       <div id="compromisos" className="mx-auto mt-24 grid max-w-[1200px] gap-px bg-[#1d1d22]/15 md:grid-cols-3">
         {points.map(({ icon: Icon, number, title, text }, index) => (
           <article key={number} className="reveal bg-[#e4edf4] p-7 md:p-9" style={{ transitionDelay: `${index * 90}ms` }} data-testid={`card-promise-${number}`}>
-            <div className="flex items-center justify-between"><span className="display text-4xl text-[#b51f30]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#b51f30]" /></div>
+            <div className="flex items-center justify-between text-[#589edb]"><span className="display text-4xl text-[#b51f30]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#b51f30]" /></div>
             <h3 className="display mt-14 text-3xl">{title}</h3>
             <p className="mt-3 text-sm leading-6 text-[#1d1d22]/60">{text}</p>
           </article>
