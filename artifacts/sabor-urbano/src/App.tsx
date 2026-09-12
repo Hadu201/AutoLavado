@@ -205,7 +205,7 @@ function Experience() {
       <div className="mx-auto grid max-w-[1200px] gap-14 md:grid-cols-[.75fr_1.25fr] md:gap-24">
         <div className="reveal">
           <p className="eyebrow text-[#3f8bcc]">01 — Nuestra promesa</p>
-          <div className="blue-line mt-6 bg-[#3f8bcc]" />
+          <div className="blue-line mt-6 bg-[#3f8bcc] text-[#6eaee6]" />
           <p className="mt-10 text-[11px] font-bold uppercase tracking-[.18em] text-[#1d1d22]/55">Tu auto vuelve<br />a destacar</p>
         </div>
         <div className="reveal">
