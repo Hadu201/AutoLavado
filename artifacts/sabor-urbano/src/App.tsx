@@ -167,9 +167,9 @@ function Hero({ onBook }: { onBook: () => void }) {
       </div>
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 pb-20 pt-36 md:px-10 md:pb-28">
         <div className="hero-copy max-w-[930px] reveal">
-          <p className="eyebrow mb-6 text-[#6eaee6]">Cuidado automotriz · Mall Plaza de los Ríos</p>
+          <p className="eyebrow mb-6 text-[#589edb]">Cuidado automotriz · Mall Plaza de los Ríos</p>
           <h1 className="display max-w-[930px] text-[clamp(4rem,12vw,11rem)] leading-[.78] tracking-[-.055em]">
-            ¡Tu auto en las<br /><em className="text-[#3f8bcc]">mejores manos!</em>
+            ¡Tu auto en las<br /><em className="text-[#589edb]">mejores manos!</em>
           </h1>
           <div className="mt-10 flex flex-col gap-7 sm:flex-row sm:items-center">
             <p className="max-w-[330px] text-sm leading-6 text-[#f7fbff]/75">
@@ -186,7 +186,7 @@ function Hero({ onBook }: { onBook: () => void }) {
             </a>
           </div>
         </div>
-        <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex border-t-[#6eaee6] border-r-[#6eaee6] border-b-[#6eaee6] border-l-[#6eaee6] text-background" data-testid="link-scroll-reservation">
+        <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex border-t-[#6eaee6] border-r-[#6eaee6] border-b-[#6eaee6] border-l-[#6eaee6] text-[#eef2f6]" data-testid="link-scroll-reservation">
           Asegura tu hora <ArrowDown size={15} className="text-[#ff7a70]" />
         </button>
       </div>
