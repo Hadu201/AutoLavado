@@ -169,7 +169,7 @@ function Hero({ onBook }: { onBook: () => void }) {
         <div className="hero-copy max-w-[930px] reveal">
           <p className="eyebrow mb-6 text-[#589edb]">Cuidado automotriz · Mall Plaza de los Ríos</p>
           <h1 className="display max-w-[930px] text-[clamp(4rem,12vw,11rem)] leading-[.78] tracking-[-.055em]">
-            ¡Tu auto en las<br /><em className="text-[#589edb]">mejores manos!</em>
+            ¡Tu auto en las<br /><em className="text-[#3f8bcc] border-t-[#3f8bcc] border-r-[#3f8bcc] border-b-[#3f8bcc] border-l-[#3f8bcc]">mejores manos!</em>
           </h1>
           <div className="mt-10 flex flex-col gap-7 sm:flex-row sm:items-center">
             <p className="max-w-[330px] text-sm leading-6 text-[#f7fbff]/75">
