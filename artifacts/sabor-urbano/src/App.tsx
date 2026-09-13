@@ -2,8 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowDown,
   ArrowRight,
-  CarFront,
-  Check,
   Clock3,
   Droplets,
   MapPin,
@@ -11,7 +9,6 @@ import {
   Phone,
   ShieldCheck,
   Sparkles,
-  Timer,
   X,
 } from 'lucide-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -33,12 +30,28 @@ type PriceRow = {
   suv: string;
   category: string;
   featured?: boolean;
+  description?: string;
 };
 
 const priceRows: PriceRow[] = [
-  { name: 'Lavado y Aspirado Full', car: '$25.000', suv: '$25.000', category: 'Lavado', featured: true },
-  { name: 'Lavado Exterior', car: '$15.000', suv: '$20.000', category: 'Lavado' },
-  { name: 'Aspirado', car: '$15.000', suv: '$20.000', category: 'Interior' },
+  { name: 'Lavado y Aspirado Full (Solo trabajadores Mall Plaza Ríos)', car: '$25.000', suv: '$25.000', category: 'Lavado', featured: true },
+  { name: 'Lavado y Aspirado Full', car: '$35.000', suv: '$45.000', category: 'Lavado' },
+  { name: 'Lavado Exterior (Solo trabajadores Mall Plaza Ríos)', car: '$15.000', suv: '$20.000', category: 'Lavado' },
+  { name: 'Lavado Exterior', car: '$20.000', suv: '$30.000', category: 'Lavado' },
+  { 
+    name: 'Aspirado (Solo trabajadores Mall Plaza Ríos)', 
+    car: '$15.000', 
+    suv: '$20.000', 
+    category: 'Interior',
+    description: '(Silicona, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado, Limpieavidrio,)'
+  },
+  { 
+    name: 'Aspirado', 
+    car: '$20.000', 
+    suv: '$30.000', 
+    category: 'Interior',
+    description: '(Silicona, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado, Limpieavidrio,)'
+  },
   { name: 'Limpieza de Techo', car: '$25.000', suv: '$30.000', category: 'Interior' },
   { name: 'Limpieza de Alfombra', car: '$40.000', suv: '$50.000', category: 'Interior' },
   { name: 'Lavado Tapiz', car: '$70.000', suv: '$80.000', category: 'Interior', featured: true },
@@ -48,7 +61,7 @@ const priceRows: PriceRow[] = [
   { name: 'Pulido Carrocería', car: '$100.000', suv: '$120.000', category: 'Pulido', featured: true },
   { name: 'Grabado de Patente (Ácido)', car: '$5.000', suv: '$5.000', category: 'Adicionales' },
   { name: 'Grabado de Patente (Tallado)', car: '$8.000', suv: '$8.000', category: 'Adicionales' },
-  { name: 'Servicio de Cercamicado', car: '$250.000', suv: '$300.000', category: 'Protección', featured: true },
+  { name: 'Servicio de Ceramicado', car: '$250.000', suv: '$300.000', category: 'Protección', featured: true },
   { name: 'Servicio Pre-Venta (Full + Pulido + Tapiz + Techo + Alfombra)', car: '$250.000', suv: '$300.000', category: 'Protección', featured: true },
 ];
 
@@ -99,7 +112,7 @@ function Header({ onBook }: { onBook: () => void }) {
             <a
               key={item.href}
               href={item.href}
-              className="focus-ring text-[10px] font-bold uppercase tracking-[.15em] text-[#f7fbff]/75 transition-colors hover:text-[#589edb]"
+              className="focus-ring text-[10px] font-bold uppercase tracking-[.15em] text-[#f7fbff]/75 transition-colors hover:text-[#005192]"
               data-testid={`link-nav-${item.label.toLowerCase().replaceAll(' ', '-')}`}
             >
               {item.label}
@@ -111,14 +124,14 @@ function Header({ onBook }: { onBook: () => void }) {
             href={whatsappUrl}
             target="_blank"
             rel="noreferrer"
-            className="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#f7fbff]/75 transition-colors hover:text-[#589edb] xl:flex"
+            className="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#f7fbff]/75 transition-colors hover:text-[#005192] xl:flex"
             data-testid="link-whatsapp-header"
           >
             <Phone size={14} /> +56 9 6178 9412
           </a>
           <button
             onClick={onBook}
-            className="hidden px-5 py-3 text-[10px] font-bold uppercase tracking-[.16em] text-[#ffffff] transition-colors hover:bg-[#3f8bcc] lg:block bg-[#005192]"
+            className="hidden px-5 py-3 text-[10px] font-bold uppercase tracking-[.16em] text-[#ffffff] transition-colors hover:bg-[#003d70] lg:block bg-[#005192]"
             data-testid="button-reserve-header"
           >
             Reserva ahora
@@ -147,7 +160,7 @@ function Header({ onBook }: { onBook: () => void }) {
               {item.label}
             </a>
           ))}
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 pt-5 text-sm text-[#589edb]" data-testid="link-whatsapp-mobile">
+          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 pt-5 text-sm text-[#005192]" data-testid="link-whatsapp-mobile">
             <Phone size={15} /> Reservar por WhatsApp
           </a>
         </div>
@@ -160,7 +173,7 @@ function Hero({ onBook }: { onBook: () => void }) {
   return (
     <section id="inicio" className="hero-grain relative flex min-h-[760px] items-end overflow-hidden bg-[#121216] md:min-h-[850px]">
       <img src={brandImage} alt="SPA CAR WASH SANTIAGO" className="hero-image absolute inset-0 h-full w-full object-cover opacity-80" fetchPriority="high" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#121216] via-[#121216]/55 to-[#121216]/15 opacity-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#121216] via-[#121216]/55 to-[#121216]/15" />
       <div className="absolute right-6 top-32 hidden text-right md:block">
         <p className="text-[10px] font-bold uppercase tracking-[.22em] text-[#f7fbff]/55">Autolavado & detailing</p>
         <p className="mt-2 text-[10px] uppercase tracking-[.2em] text-[#6eaee6]">Valdivia · Nivel -1</p>
@@ -169,7 +182,7 @@ function Hero({ onBook }: { onBook: () => void }) {
         <div className="hero-copy max-w-[930px] reveal">
           <p className="eyebrow mb-6 text-[#589edb]" style={{ color: '#589edb' }}>Cuidado automotriz · Mall Plaza de los Ríos</p>
           <h1 className="display max-w-[930px] text-[clamp(4rem,12vw,11rem)] leading-[.78] tracking-[-.055em]">
-            ¡Tu auto en las<br /><em className="text-[#005192]" style={{ color: '#589edb' }}>mejores manos!</em>
+            ¡Tu auto en las<br /><em className="text-[#005192]" style={{ color: '#005192' }}>mejores manos!</em>
           </h1>
           <div className="mt-10 flex flex-col gap-7 sm:flex-row sm:items-center">
             <p className="max-w-[330px] text-sm leading-6 text-[#f7fbff]/75">
@@ -179,14 +192,14 @@ function Hero({ onBook }: { onBook: () => void }) {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="group flex w-fit items-center gap-3 border border-[#589edb] px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#589edb] hover:text-[#ffffff] border-t-[#005192] border-r-[#005192] border-b-[#005192] border-l-[#005192] bg-[#0051922e]"
+              className="group flex w-fit items-center gap-3 border border-[#005192] bg-transparent px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#005192] hover:text-[#ffffff]"
               data-testid="button-reserve-hero"
             >
               Reserva ahora <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         </div>
-        <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex text-[#eef2f6] border border-[#589edb] px-4 py-2 border-t-[#005192] border-r-[#005192] border-b-[#005192] border-l-[#005192] bg-[#00519229]" data-testid="link-scroll-reservation">
+        <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex text-[#eef2f6] border border-[#005192] px-4 py-2" data-testid="link-scroll-reservation">
           Asegura tu hora <ArrowDown size={15} className="text-[#589edb]" />
         </button>
       </div>
@@ -204,28 +217,28 @@ function Experience() {
     <section id="experiencia" className="bg-[#f1f6fa] px-5 py-24 md:px-10 md:py-36 text-[#3f8bcc]">
       <div className="mx-auto grid max-w-[1200px] gap-14 md:grid-cols-[.75fr_1.25fr] md:gap-24">
         <div className="reveal">
-          <p className="eyebrow text-[#005192]" style={{ color: '#589edb' }}>01 — Nuestra promesa</p>
-          <div className="blue-line mt-6" style={{ backgroundColor: '#589edb' }} />
+          <p className="eyebrow text-[#589edb]" style={{ color: '#589edb' }}>01 — Nuestra promesa</p>
+          <div className="blue-line mt-6" style={{ backgroundColor: '#005192' }} />
           <p className="mt-10 text-[11px] font-bold uppercase tracking-[.18em] text-[#1d1d22]/55">Tu auto vuelve<br />a destacar</p>
         </div>
         <div className="reveal">
-          <h2 className="display text-[clamp(3.2rem,6vw,6.3rem)] leading-[.84] tracking-[-.04em] text-[#005192]">
-            Cuidamos cada<br />detalle. <em className="text-[#005192]" style={{ color: '#589edb' }}>Se nota<br />a primera vista.</em>
+          <h2 className="display text-[clamp(3.2rem,6vw,6.3rem)] leading-[.84] tracking-[-.04em]">
+            Cuidamos cada<br />detalle. <em className="text-[#005192]" style={{ color: '#005192' }}>Se nota<br />a primera vista.</em>
           </h2>
           <p className="mt-9 max-w-[620px] text-lg leading-8 text-[#1d1d22]/65">
             En SPA CAR WASH SANTIAGO trabajamos para que tu vehículo se sienta nuevo otra vez. Estamos ubicados por la entrada de Arauco, en el Nivel -1 de Mall Plaza de los Ríos, Valdivia.
           </p>
-          <div className="mt-12 grid max-w-[600px] grid-cols-2 gap-8 border-t border-[#1d1d22]/15 pt-7 sm:grid-cols-3 text-[#589edb]">
-            <div><p className="display text-4xl text-[#589edb]">100%</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Satisfacción</p></div>
-            <div><p className="display text-4xl text-[#589edb]">Nivel -1</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Mall Plaza</p></div>
-            <div><p className="display text-4xl text-[#589edb]">Valdivia</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Estamos aquí</p></div>
+          <div className="mt-12 grid max-w-[600px] grid-cols-2 gap-8 border-t border-[#1d1d22]/15 pt-7 sm:grid-cols-3 text-[#005192]">
+            <div><p className="display text-4xl text-[#005192]">100%</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Satisfacción</p></div>
+            <div><p className="display text-4xl text-[#005192]">Nivel -1</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Mall Plaza</p></div>
+            <div><p className="display text-4xl text-[#005192]">Valdivia</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Estamos aquí</p></div>
           </div>
         </div>
       </div>
       <div id="compromisos" className="mx-auto mt-24 grid max-w-[1200px] gap-px bg-[#1d1d22]/15 md:grid-cols-3">
         {points.map(({ icon: Icon, number, title, text }, index) => (
           <article key={number} className="reveal bg-[#e4edf4] p-7 md:p-9" style={{ transitionDelay: `${index * 90}ms` }} data-testid={`card-promise-${number}`}>
-            <div className="flex items-center justify-between text-[#589edb]"><span className="display text-4xl text-[#589edb]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#589edb]" /></div>
+            <div className="flex items-center justify-between text-[#005192]"><span className="display text-4xl text-[#005192]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#589edb]" /></div>
             <h3 className="display mt-14 text-3xl">{title}</h3>
             <p className="mt-3 text-sm leading-6 text-[#1d1d22]/60">{text}</p>
           </article>
@@ -242,7 +255,7 @@ function Tariff() {
     <section id="tarifario" className="bg-[#dce8f1] px-5 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-[1200px]">
         <div className="reveal flex flex-col justify-between gap-8 border-b border-[#1d1d22]/20 pb-10 md:flex-row md:items-end">
-          <div><p className="eyebrow text-[#589edb]" style={{ color: '#589edb' }}>02 — Tarifario mural</p><h2 className="display mt-5 text-[clamp(3.3rem,7vw,7rem)] leading-[.78] tracking-[-.05em]">Elige el<br /><em className="text-[#589edb]" style={{ color: '#589edb' }}>cuidado justo.</em></h2></div>
+          <div><p className="eyebrow text-[#589edb]" style={{ color: '#589edb' }}>02 — Tarifario mural</p><h2 className="display mt-5 text-[clamp(3.3rem,7vw,7rem)] leading-[.78] tracking-[-.05em]">Elige el<br /><em className="text-[#005192]" style={{ color: '#005192' }}>cuidado justo.</em></h2></div>
           <p className="max-w-[320px] text-sm leading-6 text-[#1d1d22]/65">Precios transparentes para autos, camionetas y camionetas grandes / 4x4.</p>
         </div>
         <div className="reveal mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Categorías del tarifario">
@@ -266,13 +279,18 @@ function Tariff() {
                 <tr key={row.name} className="price-row border-b border-[#1d1d22]/10 last:border-b-0" data-testid={`row-price-${index}`}>
                   <td className="px-5 py-5">
                     <div className="flex items-center gap-3">
-                      <span className={`h-2.5 w-2.5 rounded-full ${row.featured ? 'bg-[#589edb] shadow-[0_0_0_4px_rgba(88,158,219,0.2)]' : 'bg-[#1d1d22]/15'}`} />
+                      <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${row.featured ? 'bg-[#005192] shadow-[0_0_0_4px_rgba(0,81,146,0.2)]' : 'bg-[#1d1d22]/15'}`} />
                       <span className="display text-2xl">{row.name}</span>
                     </div>
-                    <span className="ml-5 text-[10px] uppercase tracking-[.12em] text-[#1d1d22]/40">{row.category}</span>
+                    <div className="ml-6 pl-0.5">
+                      {row.description && (
+                        <p className="mt-1 text-xs text-[#1d1d22]/70">{row.description}</p>
+                      )}
+                      <span className="mt-1 block text-[10px] uppercase tracking-[.12em] text-[#1d1d22]/40">{row.category}</span>
+                    </div>
                   </td>
-                  <td className="px-5 py-5 text-right text-base font-semibold text-[#589edb]">{row.car}</td>
-                  <td className="px-5 py-5 text-right text-base font-semibold text-[#589edb]">{row.suv}</td>
+                  <td className="px-5 py-5 text-right text-base font-semibold text-[#005192]">{row.car}</td>
+                  <td className="px-5 py-5 text-right text-base font-semibold text-[#005192]">{row.suv}</td>
                 </tr>
               ))}
             </tbody>
@@ -290,9 +308,9 @@ function Feature() {
       <div className="mx-auto grid max-w-[1200px] gap-12 md:grid-cols-[.8fr_1.2fr] md:items-center">
         <div className="reveal">
           <p className="eyebrow text-[#589edb]" style={{ color: '#589edb' }}>03 — La diferencia</p>
-          <h2 className="display mt-5 text-[clamp(3.2rem,6vw,6.3rem)] leading-[.82] tracking-[-.05em]">Un acabado<br />que habla<br /><em className="text-[#589edb]" style={{ color: '#589edb' }}>por sí solo.</em></h2>
+          <h2 className="display mt-5 text-[clamp(3.2rem,6vw,6.3rem)] leading-[.82] tracking-[-.05em]">Un acabado<br />que habla<br /><em className="text-[#005192]" style={{ color: '#005192' }}>por sí solo.</em></h2>
           <p className="mt-8 max-w-[330px] text-sm leading-6 text-[#f7fbff]/65">Solicita tu servicio con nuestro recepcionista y asegura un acabado impecable para tu auto.</p>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[.17em] transition-colors hover:text-[#f7fbff] text-[#589edb]" data-testid="button-feature-whatsapp">
+          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[.17em] transition-colors hover:text-[#f7fbff] text-[#005192]" data-testid="button-feature-whatsapp">
             Solicita tu servicio <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
           </a>
         </div>
@@ -341,12 +359,12 @@ function Location() {
       </div>
       <div className="location-details bg-[#121216] px-5 py-20 text-[#f7fbff] md:px-16 md:py-28">
         <p className="eyebrow text-[#589edb]" style={{ color: '#589edb' }}>05 — Encuéntranos</p>
-        <h2 className="display mt-5 text-[clamp(3rem,6vw,6rem)] leading-[.8] tracking-[-.05em]">Por la entrada<br />de <em className="text-[#589edb]" style={{ color: '#589edb' }}>Arauco.</em></h2>
+        <h2 className="display mt-5 text-[clamp(3rem,6vw,6rem)] leading-[.8] tracking-[-.05em]">Por la entrada<br />de <em className="text-[#005192]" style={{ color: '#005192' }}>Arauco.</em></h2>
         <div className="mt-12 space-y-6 text-sm">
-          <a href="https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia" target="_blank" rel="noreferrer" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#589edb] text-[#589edb]" data-testid="link-map">
+          <a href="https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia" target="_blank" rel="noreferrer" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#005192] text-[#005192]" data-testid="link-map">
             <MapPin size={17} className="mt-0.5 text-[#589edb]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
           </a>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#589edb]" data-testid="link-whatsapp-contact">
+          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#005192]" data-testid="link-whatsapp-contact">
             <Phone size={17} className="text-[#589edb]" /> +56 9 6178 9412 · WhatsApp
           </a>
           <p className="flex items-start gap-4"><Clock3 size={17} className="mt-0.5 text-[#589edb]" /><span>Reserva tu hora por WhatsApp<br />y llega directo a nuestro Nivel -1</span></p>
@@ -367,10 +385,10 @@ function Footer() {
         <div>
           <p className="eyebrow text-[#589edb]" style={{ color: '#589edb' }}>Reserva directa</p>
           <p className="mt-4 max-w-[290px] text-sm leading-6 text-[#1d1d22]/65">Las reservas se realizan únicamente por WhatsApp.</p>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-5 flex w-fit items-center gap-2 text-sm font-bold transition-colors hover:text-[#1d1d22] text-[#589edb]" data-testid="link-footer-whatsapp"><Phone size={16} /> +56 9 6178 9412</a>
+          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-5 flex w-fit items-center gap-2 text-sm font-bold transition-colors hover:text-[#1d1d22] text-[#005192]" data-testid="link-footer-whatsapp"><Phone size={16} /> +56 9 6178 9412</a>
         </div>
         <div className="flex items-start gap-5 md:justify-self-end">
-          <a href="#inicio" className="focus-ring text-[10px] uppercase tracking-[.15em] text-[#1d1d22]/65 transition-colors hover:text-[#589edb]" data-testid="link-back-top">Volver arriba ↑</a>
+          <a href="#inicio" className="focus-ring text-[10px] uppercase tracking-[.15em] text-[#1d1d22]/65 transition-colors hover:text-[#005192]" data-testid="link-back-top">Volver arriba ↑</a>
         </div>
       </div>
       <div className="mx-auto mt-16 flex max-w-[1200px] flex-col justify-between gap-3 border-t border-[#1d1d22]/15 pt-5 text-[10px] uppercase tracking-[.14em] text-[#1d1d22]/40 md:flex-row"><span>© 2026 SPA CAR WASH SANTIAGO</span><span>Entrada de Arauco · Nivel -1 · Valdivia</span></div>
