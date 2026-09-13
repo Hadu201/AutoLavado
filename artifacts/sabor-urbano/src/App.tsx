@@ -167,7 +167,7 @@ function Hero({ onBook }: { onBook: () => void }) {
       </div>
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 pb-20 pt-36 md:px-10 md:pb-28">
         <div className="hero-copy max-w-[930px] reveal">
-          <p className="eyebrow mb-6 text-[#589edb]">Cuidado automotriz · Mall Plaza de los Ríos</p>
+          <p className="eyebrow mb-6 text-[#3f8bcc] border-t-[#3f8bcc] border-r-[#3f8bcc] border-b-[#3f8bcc] border-l-[#3f8bcc]">Cuidado automotriz · Mall Plaza de los Ríos</p>
           <h1 className="display max-w-[930px] text-[clamp(4rem,12vw,11rem)] leading-[.78] tracking-[-.055em]">
             ¡Tu auto en las<br /><em className="text-[#3f8bcc] border-t-[#3f8bcc] border-r-[#3f8bcc] border-b-[#3f8bcc] border-l-[#3f8bcc]">mejores manos!</em>
           </h1>
@@ -179,7 +179,7 @@ function Hero({ onBook }: { onBook: () => void }) {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="group flex w-fit items-center gap-3 border border-[#e33845] px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#e33845] hover:text-[#ffffff] border-t-[#589edb] border-r-[#589edb] border-b-[#589edb] border-l-[#589edb] opacity-[1] bg-[#3f8bcc]"
+              className="group flex w-fit items-center gap-3 border border-[#e33845] px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#e33845] hover:text-[#ffffff] border-t-[#589edb] border-r-[#589edb] border-b-[#589edb] border-l-[#589edb] opacity-[1] bg-[#3f8bcc00]"
               data-testid="button-reserve-hero"
             >
               Reserva ahora <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
