@@ -34,19 +34,25 @@ type PriceRow = {
 };
 
 const priceRows: PriceRow[] = [
-  { name: 'Lavado y Aspirado Full (Solo trabajadores Mall Plaza Ríos)', car: '$25.000', suv: '$25.000', category: 'Lavado', featured: true },
-  { name: 'Lavado y Aspirado Full', car: '$35.000', suv: '$45.000', category: 'Lavado' },
-  { name: 'Lavado Exterior (Solo trabajadores Mall Plaza Ríos)', car: '$15.000', suv: '$20.000', category: 'Lavado' },
-  { name: 'Lavado Exterior', car: '$20.000', suv: '$30.000', category: 'Lavado' },
+  { name: 'Lavado y Aspirado Full (Convenio con trabajadores del Mall Plaza De Los Ríos)', car: '$25.000', suv: '$25.000', category: 'Lavado', featured: true },
   { 
-    name: 'Aspirado (Solo trabajadores Mall Plaza Ríos)', 
+    name: 'Lavado y Aspirado Full', 
+    car: '$35.000', 
+    suv: '$45.000', 
+    category: 'Lavado',
+    description: '(Shampoo, Cera, Renovador de neumatico, desengrasante al Aro, Silicona, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado,                           Limpieavidrio)'
+  },
+  { name: 'Lavado Exterior', car: '$15.000', suv: '$20.000', category: 'Lavado' },
+  { name: 'Lavado Exterior + CERA', car: '$20.000', suv: '$30.000', category: 'Lavado' },
+  { 
+    name: 'Aspirado', 
     car: '$15.000', 
     suv: '$20.000', 
     category: 'Interior',
-    description: '(Silicona, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado, Limpieavidrio,)'
+    description: ''
   },
   { 
-    name: 'Aspirado', 
+    name: 'Aspirado + SILICONA', 
     car: '$20.000', 
     suv: '$30.000', 
     category: 'Interior',
@@ -58,11 +64,11 @@ const priceRows: PriceRow[] = [
   { name: 'Limpieza Humectación de Cuero', car: '$50.000', suv: '$60.000', category: 'Interior' },
   { name: 'Pulido por Llanta', car: '$10.000', suv: '$10.000', category: 'Pulido' },
   { name: 'Pulido Focos Delanteros + Sellante', car: '$30.000', suv: '$30.000', category: 'Pulido' },
-  { name: 'Pulido Carrocería', car: '$100.000', suv: '$120.000', category: 'Pulido', featured: true },
+  { name: 'Pulido Carrocería', car: '$80.000', suv: '$100.000', category: 'Pulido', featured: true },
   { name: 'Grabado de Patente (Ácido)', car: '$5.000', suv: '$5.000', category: 'Adicionales' },
   { name: 'Grabado de Patente (Tallado)', car: '$8.000', suv: '$8.000', category: 'Adicionales' },
-  { name: 'Servicio de Ceramicado', car: '$250.000', suv: '$300.000', category: 'Protección', featured: true },
-  { name: 'Servicio Pre-Venta (Full + Pulido + Tapiz + Techo + Alfombra)', car: '$250.000', suv: '$300.000', category: 'Protección', featured: true },
+  { name: 'Servicio de Ceramicado', car: '$200.000', suv: '$250.000', category: 'Protección', featured: true },
+  { name: 'Servicio Pre-Venta (Full + Pulido + Tapiz + Techo + Alfombra)', car: '$200.000', suv: '$250.000', category: 'Protección', featured: true },
 ];
 
 const categories = ['Todos', 'Lavado', 'Interior', 'Pulido', 'Protección'];
@@ -317,7 +323,7 @@ function Feature() {
         <div className="image-hover reveal relative min-h-[460px] overflow-hidden md:min-h-[620px]">
           <img src={brandImage} alt="Vehículo atendido por SPA CAR WASH SANTIAGO" loading="lazy" className="h-full w-full object-cover" />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#121216] p-7 pt-28">
-            <p className="eyebrow text-[#589edb]" style={{ color: '#589edb' }}>Sellos de compromiso</p>
+            <p className="eyebrow text-[#005192]" style={{ color: '#005192' }}>Sellos de compromiso</p>
             <p className="mt-3 max-w-[540px] text-2xl font-semibold leading-snug">Limpieza Profesional · Acabados Impecables · Rápido y Puntual · 100% Satisfacción</p>
           </div>
         </div>
