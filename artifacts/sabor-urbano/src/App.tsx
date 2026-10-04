@@ -22,6 +22,8 @@ const queryClient = new QueryClient();
 const brandName = 'SANTIAGO SPA CAR WASH';
 const brandImage =
   'https://res.cloudinary.com/dsleqvjr/image/upload/v1788479431/ChatGPT_Image_12_jul_2026_21_06_42.png';
+const blueCarWashImage = `${import.meta.env.BASE_URL}images/blue-car-wash.webp`;
+const foamDetailImage = `${import.meta.env.BASE_URL}images/foam-detail.webp`;
 const whatsappUrl =
   'https://wa.me/56961789412?text=Hola%2C%20quiero%20reservar%20un%20servicio%20en%20SANTIAGO%20SPA%20CAR%20WASH.';
 const googleMapsUrl = 'https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia';
@@ -187,7 +189,7 @@ function Header({ onBook }: { onBook: () => void }) {
 function Hero({ onBook }: { onBook: () => void }) {
   return (
     <section id="inicio" className="hero-grain relative flex min-h-[760px] items-end overflow-hidden bg-[#121216] md:min-h-[850px]">
-      <img src={brandImage} alt={brandName} className="hero-image absolute inset-0 h-full w-full object-contain md:object-cover opacity-80" fetchPriority="high" />
+      <img src={blueCarWashImage} alt="Automóvil azul cubierto de espuma durante un lavado profesional" className="hero-image absolute inset-0 h-full w-full object-cover opacity-80" fetchPriority="high" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#121216] via-[#121216]/55 to-[#121216]/15" />
       <div className="absolute right-6 top-32 hidden text-right md:block">
         <p className="text-[10px] font-bold uppercase tracking-[.22em] text-[#f7fbff]/55">Autolavado & detailing</p>
@@ -330,7 +332,7 @@ function Feature() {
           </a>
         </div>
         <div className="image-hover reveal relative min-h-[460px] overflow-hidden md:min-h-[620px]">
-          <img src={brandImage} alt={`Vehículo atendido por ${brandName}`} loading="lazy" className="h-full w-full object-cover" />
+          <img src={foamDetailImage} alt="Detalle de automóvil azul cubierto de espuma en el proceso de lavado" loading="lazy" className="h-full w-full object-cover" />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#121216] p-7 pt-28">
             <p className="eyebrow text-[#005192]" style={{ color: '#005192' }}>Sellos de compromiso</p>
             <p className="mt-3 max-w-[540px] text-2xl font-semibold leading-snug">Limpieza Profesional · Acabados Impecables · Rápido y Puntual · 100% Satisfacción</p>
@@ -344,14 +346,14 @@ function Feature() {
 const serviceComparisons = [
   {
     title: 'Pulido de focos',
-    before: `${import.meta.env.BASE_URL}images/pulido-focos-antes.jpg`,
-    after: `${import.meta.env.BASE_URL}images/pulido-focos-despues.jpg`,
+    before: `${import.meta.env.BASE_URL}images/pulido-focos-antes.webp`,
+    after: `${import.meta.env.BASE_URL}images/pulido-focos-despues.webp`,
     alt: 'Pulido de focos delanteros, antes y después',
   },
   {
     title: 'Reparación de abollón',
-    before: `${import.meta.env.BASE_URL}images/reparacion-abollon-antes.jpg`,
-    after: `${import.meta.env.BASE_URL}images/reparacion-abollon-despues.jpg`,
+    before: `${import.meta.env.BASE_URL}images/reparacion-abollon-antes.webp`,
+    after: `${import.meta.env.BASE_URL}images/reparacion-abollon-despues.webp`,
     alt: 'Reparación de abollón en la parte trasera del vehículo, antes y después',
   },
 ];
