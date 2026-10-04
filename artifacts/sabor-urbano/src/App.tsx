@@ -120,8 +120,10 @@ function Header({ onBook }: { onBook: () => void }) {
   return (
     <header className={`nav-shell fixed inset-x-0 top-0 z-40 ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="nav-inner mx-auto flex max-w-[1400px] items-center justify-between px-5 py-5 md:px-10 md:py-7">
-        <a href="#inicio" onClick={close} className="focus-ring flex items-center gap-3" data-testid="link-home">
-          <img src={brandImage} alt={brandName} className="brand-logo h-9 w-14 object-contain" />
+        <a href="#inicio" onClick={close} aria-label={brandName} className="focus-ring flex items-center gap-3" data-testid="link-home">
+          <span className="brand-logo-frame h-14 w-14 md:h-16 md:w-16" aria-hidden="true">
+            <img src={brandImage} alt="" className="brand-logo h-full w-full rounded-full object-contain p-1.5" />
+          </span>
           <span className="hidden text-[11px] font-bold uppercase tracking-[.19em] sm:block">{brandName}</span>
         </a>
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Navegación principal">
@@ -216,8 +218,8 @@ function Hero({ onBook }: { onBook: () => void }) {
             </a>
           </div>
         </div>
-        <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex text-[#eef2f6] border border-[#005192] px-4 py-2" data-testid="link-scroll-reservation">
-          Asegura tu hora <ArrowDown size={15} className="text-[#005192]" />
+        <button onClick={onBook} className="focus-ring group absolute bottom-8 right-5 hidden items-center gap-3 rounded-lg border border-[#005192] px-5 py-3 text-[10px] uppercase tracking-[.2em] text-[#eef2f6] transition-colors duration-200 hover:bg-[#005192] hover:text-[#ffffff] md:flex" data-testid="link-scroll-reservation">
+          Asegura tu hora <ArrowDown size={15} className="text-[#005192] transition-colors group-hover:text-[#ffffff]" />
         </button>
       </div>
     </section>
@@ -252,9 +254,9 @@ function Experience() {
           </div>
         </div>
       </div>
-      <div id="compromisos" className="mx-auto mt-24 grid max-w-[1200px] gap-px bg-[#1d1d22]/15 md:grid-cols-3">
+      <div id="compromisos" className="mx-auto mt-24 grid max-w-[1200px] gap-4 md:grid-cols-3">
         {points.map(({ icon: Icon, number, title, text }, index) => (
-          <article key={number} className="reveal bg-[#e4edf4] p-7 md:p-9" style={{ transitionDelay: `${index * 90}ms` }} data-testid={`card-promise-${number}`}>
+          <article key={number} className="reveal rounded-2xl border border-[#1d1d22]/10 bg-[#e4edf4] p-7 shadow-sm transition-transform duration-300 hover:-translate-y-1 md:p-9" style={{ transitionDelay: `${index * 90}ms` }} data-testid={`card-promise-${number}`}>
             <div className="flex items-center justify-between text-[#005192]"><span className="display text-4xl text-[#005192]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#005192]" /></div>
             <h3 className="display mt-14 text-3xl">{title}</h3>
             <p className="mt-3 text-sm leading-6 text-[#1d1d22]/60">{text}</p>
@@ -277,12 +279,12 @@ function Tariff() {
         </div>
         <div className="reveal mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Categorías del tarifario">
           {categories.map((item) => (
-            <button key={item} onClick={() => setCategory(item)} role="tab" aria-selected={category === item} className={`focus-ring px-4 py-2.5 text-[10px] font-bold uppercase tracking-[.14em] transition-colors ${category === item ? 'bg-[#121216] text-[#f7fbff]' : 'border border-[#1d1d22]/25 text-[#1d1d22]/65 hover:border-[#1d1d22]'}`} data-testid={`button-price-${item.toLowerCase()}`}>
+          <button key={item} onClick={() => setCategory(item)} role="tab" aria-selected={category === item} className={`focus-ring rounded-full px-4 py-2.5 text-[10px] font-bold uppercase tracking-[.14em] transition-colors ${category === item ? 'bg-[#121216] text-[#f7fbff]' : 'border border-[#1d1d22]/25 text-[#1d1d22]/65 hover:border-[#1d1d22]'}`} data-testid={`button-price-${item.toLowerCase()}`}>
               {item}
             </button>
           ))}
         </div>
-        <div className="tariff-wrap mt-7 overflow-x-auto border border-[#1d1d22]/15 bg-[#f5f9fc]">
+        <div className="tariff-wrap mt-7 overflow-x-auto rounded-2xl border border-[#1d1d22]/15 bg-[#f5f9fc] shadow-sm">
           <table className="tariff-table w-full border-collapse text-left">
             <thead className="bg-[#121216] text-[#f7fbff]">
               <tr>
@@ -296,7 +298,7 @@ function Tariff() {
                 <tr key={row.name} className="price-row border-b border-[#1d1d22]/10 last:border-b-0" data-testid={`row-price-${index}`}>
                   <td className="px-5 py-5">
                     <div className="flex items-center gap-3">
-                      <span aria-hidden="true" className={`price-dot ${row.featured ? 'is-featured bg-[#005192] text-[#005192]' : 'bg-[#1d1d22]/15'}`} />
+                      <span aria-hidden="true" className="price-dot" />
                       <span className="display text-2xl">{row.name}</span>
                     </div>
                     <div className="ml-6 pl-0.5">
@@ -331,7 +333,7 @@ function Feature() {
             Solicita tu servicio <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
           </a>
         </div>
-        <div className="image-hover reveal relative min-h-[460px] overflow-hidden md:min-h-[620px]">
+        <div className="image-hover reveal relative min-h-[460px] overflow-hidden rounded-3xl border border-[#f7fbff]/10 shadow-xl md:min-h-[620px]">
           <img src={foamDetailImage} alt="Detalle de automóvil azul cubierto de espuma en el proceso de lavado" loading="lazy" className="h-full w-full object-cover" />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#121216] p-7 pt-28">
             <p className="eyebrow text-[#005192]" style={{ color: '#005192' }}>Sellos de compromiso</p>
@@ -375,13 +377,13 @@ function ServiceGallery() {
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {serviceComparisons.map((service, index) => (
-            <article key={service.title} className="reveal overflow-hidden border border-[#1d1d22]/10 bg-[#f5f9fc]" style={{ transitionDelay: `${index * 100}ms` }}>
+            <article key={service.title} className="reveal overflow-hidden rounded-2xl border border-[#1d1d22]/10 bg-[#f5f9fc] shadow-sm transition-shadow duration-300 hover:shadow-lg" style={{ transitionDelay: `${index * 100}ms` }}>
               <div className="grid grid-cols-2 gap-1 bg-[#121216] p-1">
                 {[
                   { label: 'Antes', src: service.before },
                   { label: 'Después', src: service.after },
                 ].map(({ label, src }) => (
-                  <figure key={label} className="relative aspect-[4/3] overflow-hidden bg-[#121216]">
+                  <figure key={label} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#121216]">
                     <img src={src} alt={`${service.alt} — ${label.toLowerCase()}`} loading="lazy" className="h-full w-full object-cover" />
                     <figcaption className="absolute left-3 top-3 bg-[#121216]/85 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[.16em] text-[#f7fbff]">
                       {label}
@@ -451,7 +453,12 @@ function Footer() {
     <footer className="bg-[#dce8f1] px-5 py-16 md:px-10 md:py-20">
       <div className="mx-auto grid max-w-[1200px] gap-12 md:grid-cols-[1fr_1fr_auto]">
         <div>
-          <div className="flex items-center gap-3"><img src={brandImage} alt={brandName} className="brand-logo h-9 w-14 object-contain" /><span className="text-[11px] font-bold uppercase tracking-[.19em]">{brandName}</span></div>
+          <div className="flex items-center gap-3">
+            <span className="brand-logo-frame h-14 w-14 md:h-16 md:w-16" aria-hidden="true">
+              <img src={brandImage} alt="" className="brand-logo h-full w-full rounded-full object-contain p-1.5" />
+            </span>
+            <span className="text-[11px] font-bold uppercase tracking-[.19em]">{brandName}</span>
+          </div>
           <p className="mt-5 max-w-[280px] text-sm leading-6 text-[#1d1d22]/55">Tu auto en las mejores manos. Limpieza profesional y acabados impecables en Valdivia.</p>
         </div>
         <div>

@@ -98,13 +98,15 @@
 .display { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; }
 .eyebrow { font-size: .65rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 700; }
 .brand-mark { border-color: #005192; color: #005192; }
-.brand-logo { filter: saturate(.9) contrast(1.08); }
+.brand-logo-frame { display: inline-grid; flex: 0 0 auto; place-items: center; overflow: hidden; border: 1.5px solid #005192; border-radius: 9999px; background: #121216; box-shadow: 0 0 0 3px rgba(0, 81, 146, .14), 0 8px 18px rgba(18, 18, 22, .16); }
+.brand-logo { display: block; width: 100%; height: 100%; filter: saturate(.9) contrast(1.08); }
 .focus-ring:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #005192; outline-offset: 4px; }
 .nav-shell { transition: background-color .45s ease, box-shadow .45s ease; }
 .nav-shell, .nav-shell a, .nav-shell button { color: #f7fbff; }
 .nav-shell.is-scrolled { background: rgba(11, 17, 25, .96); box-shadow: 0 10px 32px rgba(5, 12, 20, .22); }
 .nav-inner { transition: padding .45s ease; }
 .nav-shell.is-scrolled .nav-inner { padding-top: .75rem; padding-bottom: .75rem; }
+.carwash-page main > section:not(.hero-grain) { scroll-margin-top: 5.5rem; }
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .75s ease, transform .75s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 .hero-image { object-position: center 46%; transform: none; animation: none; }
@@ -124,8 +126,7 @@
 .service-card:hover { transform: translateY(-4px); background: #f8fafc; border-color: #005192; }
 .price-row { transition: background-color .25s ease; }
 .price-row:hover { background: #ffffff; }
-.price-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 999px; background: #b5c5d1; }
-.price-dot.is-featured { background: #005192; box-shadow: 0 0 0 4px rgba(0, 81, 146, .18); }
+.price-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 999px; background: rgba(29, 29, 34, .28); }
 .map-grid { background-color: #dcf8c6; background-image: linear-gradient(31deg, transparent 47%, rgba(29, 29, 34, .13) 48%, transparent 50%), linear-gradient(112deg, transparent 43%, rgba(29, 29, 34, .11) 44%, transparent 46%), linear-gradient(0deg, transparent 69%, rgba(21, 128, 61, .25) 70%, transparent 72%); background-size: 160px 160px, 210px 210px, 260px 260px; }
 .map-pin { animation: pinPulse 2.5s ease-out infinite; }
 @keyframes pinPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(0, 81, 146, .5); } 50% { box-shadow: 0 0 0 14px rgba(0, 81, 146, 0); } }
@@ -138,7 +139,6 @@
 .reservation-section a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 640px) {
   .nav-inner { padding-top: .9rem; padding-bottom: .9rem; }
-  .brand-logo { width: 3.75rem; height: 2.5rem; }
   .hero-image { object-position: 50% 38%; }
   .hero-copy h1 { font-size: clamp(3.35rem, 17vw, 5.3rem); line-height: .8; }
   .hero-copy p { max-width: 19rem; }
