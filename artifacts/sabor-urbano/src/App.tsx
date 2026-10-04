@@ -24,6 +24,7 @@ const brandImage =
   'https://res.cloudinary.com/dsleqvjr/image/upload/v1788479431/ChatGPT_Image_12_jul_2026_21_06_42.png';
 const whatsappUrl =
   'https://wa.me/56961789412?text=Hola%2C%20quiero%20reservar%20un%20servicio%20en%20SANTIAGO%20SPA%20CAR%20WASH.';
+const googleMapsUrl = 'https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia';
 
 type PriceRow = {
   name: string;
@@ -36,6 +37,13 @@ type PriceRow = {
 
 const priceRows: PriceRow[] = [
   { name: 'Lavado y Aspirado Full (Convenio con trabajadores del Mall Plaza De Los Ríos)', car: '$25.000', suv: '$25.000', category: 'Lavado', featured: true },
+  { 
+    name: 'Lavado y Aspirado Full' ,
+    car: '$25.000', 
+    suv: '$35.000', 
+    category: 'Lavado',
+    description: '(Shampoo, Renovador de neumatico, desengrasante al Aro, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado,                           Limpieavidrio)'
+  },
   { 
     name: 'Lavado y Aspirado Full (CERA + SILICONA)' ,
     car: '$35.000', 
@@ -179,15 +187,15 @@ function Header({ onBook }: { onBook: () => void }) {
 function Hero({ onBook }: { onBook: () => void }) {
   return (
     <section id="inicio" className="hero-grain relative flex min-h-[760px] items-end overflow-hidden bg-[#121216] md:min-h-[850px]">
-      <img src={brandImage} alt={brandName} className="hero-image absolute inset-0 h-full w-full object-cover opacity-80" fetchPriority="high" />
+      <img src={brandImage} alt={brandName} className="hero-image absolute inset-0 h-full w-full object-contain md:object-cover opacity-80" fetchPriority="high" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#121216] via-[#121216]/55 to-[#121216]/15" />
       <div className="absolute right-6 top-32 hidden text-right md:block">
         <p className="text-[10px] font-bold uppercase tracking-[.22em] text-[#f7fbff]/55">Autolavado & detailing</p>
-        <p className="mt-2 text-[10px] uppercase tracking-[.2em] text-[#6eaee6]">Valdivia · Nivel -1</p>
+        <p className="mt-2 text-[10px] uppercase tracking-[.2em] text-[#005192]">Valdivia · Nivel -1</p>
       </div>
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 pb-20 pt-36 md:px-10 md:pb-28">
         <div className="hero-copy max-w-[930px] reveal">
-          <p className="eyebrow mb-6 text-[#6eaee6]">Cuidado automotriz · Mall Plaza de los Ríos</p>
+          <p className="eyebrow mb-6 text-[#005192]">Cuidado automotriz · Mall Plaza de los Ríos</p>
           <h1 className="display max-w-[930px] text-[clamp(4rem,12vw,11rem)] leading-[.78] tracking-[-.055em]">
             ¡Tu auto en las<br /><em className="text-[#005192]" style={{ color: '#005192' }}>mejores manos!</em>
           </h1>
@@ -207,7 +215,7 @@ function Hero({ onBook }: { onBook: () => void }) {
           </div>
         </div>
         <button onClick={onBook} className="focus-ring absolute bottom-8 right-5 hidden items-center gap-3 text-[10px] uppercase tracking-[.2em] md:flex text-[#eef2f6] border border-[#005192] px-4 py-2" data-testid="link-scroll-reservation">
-          Asegura tu hora <ArrowDown size={15} className="text-[#589edb]" />
+          Asegura tu hora <ArrowDown size={15} className="text-[#005192]" />
         </button>
       </div>
     </section>
@@ -245,7 +253,7 @@ function Experience() {
       <div id="compromisos" className="mx-auto mt-24 grid max-w-[1200px] gap-px bg-[#1d1d22]/15 md:grid-cols-3">
         {points.map(({ icon: Icon, number, title, text }, index) => (
           <article key={number} className="reveal bg-[#e4edf4] p-7 md:p-9" style={{ transitionDelay: `${index * 90}ms` }} data-testid={`card-promise-${number}`}>
-            <div className="flex items-center justify-between text-[#005192]"><span className="display text-4xl text-[#005192]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#589edb]" /></div>
+            <div className="flex items-center justify-between text-[#005192]"><span className="display text-4xl text-[#005192]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#005192]" /></div>
             <h3 className="display mt-14 text-3xl">{title}</h3>
             <p className="mt-3 text-sm leading-6 text-[#1d1d22]/60">{text}</p>
           </article>
@@ -283,10 +291,10 @@ function Tariff() {
             </thead>
             <tbody className="text-[#1d1d22]">
               {filtered.map((row, index) => (
-                <tr key={`${row.category}-${row.name}-${row.car}-${row.suv}-${index}`} className="price-row border-b border-[#1d1d22]/10 last:border-b-0" data-testid={`row-price-${index}`}>
+                <tr key={row.name} className="price-row border-b border-[#1d1d22]/10 last:border-b-0" data-testid={`row-price-${index}`}>
                   <td className="px-5 py-5">
                     <div className="flex items-center gap-3">
-                      <span aria-hidden="true" className={`price-dot ${row.featured ? 'is-featured bg-[#3f8bcc] text-[#3f8bcc]' : 'bg-[#1d1d22]/15'}`} />
+                      <span aria-hidden="true" className={`price-dot ${row.featured ? 'is-featured bg-[#005192] text-[#005192]' : 'bg-[#1d1d22]/15'}`} />
                       <span className="display text-2xl">{row.name}</span>
                     </div>
                     <div className="ml-6 pl-0.5">
@@ -314,7 +322,7 @@ function Feature() {
     <section className="feature-section bg-[#121216] px-5 py-24 text-[#f7fbff] md:px-10 md:py-32">
       <div className="mx-auto grid max-w-[1200px] gap-12 md:grid-cols-[.8fr_1.2fr] md:items-center">
         <div className="reveal">
-          <p className="eyebrow text-[#6eaee6]">03 — La diferencia</p>
+          <p className="eyebrow text-[#005192]">03 — La diferencia</p>
           <h2 className="display mt-5 text-[clamp(3.2rem,6vw,6.3rem)] leading-[.82] tracking-[-.05em]">Un acabado<br />que habla<br /><em className="text-[#005192]">por sí solo.</em></h2>
           <p className="mt-8 max-w-[330px] text-sm leading-6 text-[#f7fbff]/65">Solicita tu servicio con nuestro recepcionista y asegura un acabado impecable para tu auto.</p>
           <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[.17em] transition-colors hover:text-[#f7fbff] text-[#005192]" data-testid="button-feature-whatsapp">
@@ -413,23 +421,23 @@ function Location() {
     <section id="ubicacion" className="grid md:grid-cols-2">
       <div className="map-grid relative min-h-[420px] overflow-hidden bg-[#dcf8c6]">
         <div className="absolute inset-0 bg-[#16a34a] opacity-[0.12]" />
-        <div className="absolute left-[53%] top-[43%]">
-          <div className="map-pin flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#15803d] text-[#ffffff] shadow-lg"><MapPin size={21} /></div>
+        <a href={googleMapsUrl} target="_blank" rel="noreferrer" aria-label="Abrir ubicación en Google Maps" title="Abrir en Google Maps" className="focus-ring absolute left-[53%] top-[43%] z-10 -translate-x-1/2 -translate-y-1/2 rounded-full">
+          <div className="map-pin flex h-12 w-12 items-center justify-center rounded-full bg-[#005192] text-[#ffffff] shadow-lg"><MapPin size={21} /></div>
           <span className="absolute left-7 top-7 whitespace-nowrap bg-[#121216] px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#f7fbff]">{brandName}</span>
-        </div>
+        </a>
         <div className="absolute bottom-6 left-6 border-l-2 border-[#15803d] bg-[#f1f6fa]/95 px-4 py-3 text-[10px] uppercase tracking-[.14em] text-[#1d1d22]">Entrada de Arauco<br />Nivel -1</div>
       </div>
       <div className="location-details bg-[#121216] px-5 py-20 text-[#f7fbff] md:px-16 md:py-28">
-        <p className="eyebrow text-[#6eaee6]">05 — Encuéntranos</p>
+        <p className="eyebrow text-[#005192]">05 — Encuéntranos</p>
         <h2 className="display mt-5 text-[clamp(3rem,6vw,6rem)] leading-[.8] tracking-[-.05em]">Por la entrada<br />de <em className="text-[#005192]" style={{ color: '#005192' }}>Arauco.</em></h2>
         <div className="mt-12 space-y-6 text-sm">
-          <a href="https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia" target="_blank" rel="noreferrer" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#005192] text-[#005192]" data-testid="link-map">
-            <MapPin size={17} className="mt-0.5 text-[#589edb]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
+          <a href={googleMapsUrl} target="_blank" rel="noreferrer" aria-label="Abrir Mall Plaza de los Ríos, Valdivia en Google Maps" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#005192] text-[#005192]" data-testid="link-map">
+            <MapPin size={17} className="mt-0.5 text-[#005192]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
           </a>
           <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#005192]" data-testid="link-whatsapp-contact">
-            <Phone size={17} className="text-[#589edb]" /> +56 9 6178 9412 · WhatsApp
+            <Phone size={17} className="text-[#005192]" /> +56 9 6178 9412 · WhatsApp
           </a>
-          <p className="flex items-start gap-4"><Clock3 size={17} className="mt-0.5 text-[#589edb]" /><span>Reserva tu hora por WhatsApp<br />y llega directo a nuestro Nivel -1</span></p>
+          <p className="flex items-start gap-4"><Clock3 size={17} className="mt-0.5 text-[#005192]" /><span>Reserva tu hora por WhatsApp<br />y llega directo a nuestro Nivel -1</span></p>
         </div>
       </div>
     </section>
@@ -445,7 +453,7 @@ function Footer() {
           <p className="mt-5 max-w-[280px] text-sm leading-6 text-[#1d1d22]/55">Tu auto en las mejores manos. Limpieza profesional y acabados impecables en Valdivia.</p>
         </div>
         <div>
-          <p className="eyebrow text-[#589edb]" style={{ color: '#589edb' }}>Reserva directa</p>
+          <p className="eyebrow text-[#005192]">Reserva directa</p>
           <p className="mt-4 max-w-[290px] text-sm leading-6 text-[#1d1d22]/65">Las reservas se realizan únicamente por WhatsApp.</p>
           <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-5 flex w-fit items-center gap-2 text-sm font-bold transition-colors hover:text-[#1d1d22] text-[#005192]" data-testid="link-footer-whatsapp"><Phone size={16} /> +56 9 6178 9412</a>
         </div>
