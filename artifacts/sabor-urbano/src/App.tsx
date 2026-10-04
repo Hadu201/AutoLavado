@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-  ArrowDown,
   ArrowRight,
   Clock3,
   Droplets,
@@ -115,6 +114,7 @@ function Header({ onBook }: { onBook: () => void }) {
     { label: 'La experiencia', href: '#experiencia' },
     { label: 'Tarifario', href: '#tarifario' },
     { label: 'Compromisos', href: '#compromisos' },
+    { label: 'Resultados', href: '#trabajos' },
     { label: 'Reserva', href: '#reservas' },
   ];
   return (
@@ -188,7 +188,7 @@ function Header({ onBook }: { onBook: () => void }) {
   );
 }
 
-function Hero({ onBook }: { onBook: () => void }) {
+function Hero() {
   return (
     <section id="inicio" className="hero-grain relative flex min-h-[760px] items-end overflow-hidden bg-[#121216] md:min-h-[850px]">
       <img src={blueCarWashImage} alt="Automóvil azul cubierto de espuma durante un lavado profesional" className="hero-image absolute inset-0 h-full w-full object-cover opacity-80" fetchPriority="high" />
@@ -218,9 +218,6 @@ function Hero({ onBook }: { onBook: () => void }) {
             </a>
           </div>
         </div>
-        <button onClick={onBook} className="focus-ring group absolute bottom-8 right-5 hidden items-center gap-3 rounded-lg border border-[#005192] px-5 py-3 text-[10px] uppercase tracking-[.2em] text-[#eef2f6] transition-colors duration-200 hover:bg-[#005192] hover:text-[#ffffff] md:flex" data-testid="link-scroll-reservation">
-          Asegura tu hora <ArrowDown size={15} className="text-[#005192] transition-colors group-hover:text-[#ffffff]" />
-        </button>
       </div>
     </section>
   );
@@ -436,7 +433,7 @@ function Location() {
         <h2 className="display mt-5 text-[clamp(3rem,6vw,6rem)] leading-[.8] tracking-[-.05em]">Por la entrada<br />de <em className="text-[#005192]" style={{ color: '#005192' }}>Arauco.</em></h2>
         <div className="mt-12 space-y-6 text-sm">
           <a href={googleMapsUrl} target="_blank" rel="noreferrer" aria-label="Abrir Mall Plaza de los Ríos, Valdivia en Google Maps" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#005192] text-[#005192]" data-testid="link-map">
-            <MapPin size={17} className="mt-0.5 text-[#15803d]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
+            <MapPin size={17} className="mt-0.5 text-[#005192]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
           </a>
           <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#005192]" data-testid="link-whatsapp-contact">
             <Phone size={17} className="text-[#005192]" /> +56 9 6178 9412 · WhatsApp
@@ -481,7 +478,7 @@ function Home() {
   return (
     <div className="carwash-page min-h-[100dvh]">
       <Header onBook={scrollToBook} />
-      <main><Hero onBook={scrollToBook} /><Experience /><Tariff /><Feature /><ServiceGallery /><Reservation /><Location /></main>
+      <main><Hero /><Experience /><Tariff /><Feature /><ServiceGallery /><Reservation /><Location /></main>
       <Footer />
     </div>
   );
