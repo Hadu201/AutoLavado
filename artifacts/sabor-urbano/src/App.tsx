@@ -150,7 +150,7 @@ function Header({ onBook }: { onBook: () => void }) {
           </a>
           <button
             onClick={onBook}
-            className="hidden px-5 py-3 text-[10px] font-bold uppercase tracking-[.16em] text-[#ffffff] transition-colors hover:bg-[#003d70] lg:block bg-[#005192]"
+            className="hidden rounded-lg px-5 py-3 text-[10px] font-bold uppercase tracking-[.16em] text-[#ffffff] transition-colors hover:bg-[#003d70] lg:block bg-[#005192]"
             data-testid="button-reserve-header"
           >
             Reserva ahora
@@ -211,7 +211,7 @@ function Hero({ onBook }: { onBook: () => void }) {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="group flex w-fit items-center gap-3 border border-[#005192] bg-transparent px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#005192] hover:text-[#ffffff]"
+              className="group flex w-fit items-center gap-3 rounded-lg border border-[#005192] bg-transparent px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#005192] hover:text-[#ffffff]"
               data-testid="button-reserve-hero"
             >
               Reserva ahora <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -335,7 +335,7 @@ function Feature() {
         </div>
         <div className="image-hover reveal relative min-h-[460px] overflow-hidden rounded-3xl border border-[#f7fbff]/10 shadow-xl md:min-h-[620px]">
           <img src={foamDetailImage} alt="Detalle de automóvil azul cubierto de espuma en el proceso de lavado" loading="lazy" className="h-full w-full object-cover" />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#121216] p-7 pt-28">
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#121216] p-7 pb-3 pt-12">
             <p className="eyebrow text-[#005192]" style={{ color: '#005192' }}>Sellos de compromiso</p>
             <p className="mt-3 max-w-[540px] text-2xl font-semibold leading-snug">Limpieza Profesional · Acabados Impecables · Rápido y Puntual · 100% Satisfacción</p>
           </div>
@@ -366,9 +366,9 @@ function ServiceGallery() {
       <div className="mx-auto max-w-[1200px]">
         <div className="reveal mb-10 flex flex-col justify-between gap-5 md:mb-14 md:flex-row md:items-end">
           <div>
-            <p className="eyebrow text-[#005192]">Resultados reales</p>
+            <p className="eyebrow text-[#005192]">04 — Resultados reales</p>
             <h2 className="display mt-4 max-w-[740px] text-[clamp(3rem,7vw,6rem)] leading-[.84] tracking-[-.05em]">
-              El cambio está<br />en los detalles.
+              El cambio está<br /><span className="text-[#005192]">en los detalles.</span>
             </h2>
           </div>
           <p className="max-w-[330px] text-sm leading-6 text-[#1d1d22]/65">
@@ -391,7 +391,7 @@ function ServiceGallery() {
                   </figure>
                 ))}
               </div>
-              <h3 className="display px-5 py-4 text-2xl text-[#1d1d22] md:px-6 md:py-5">{service.title}</h3>
+              <h3 className="display px-5 py-4 text-2xl text-[#005192] md:px-6 md:py-5">{service.title}</h3>
             </article>
           ))}
         </div>
@@ -405,12 +405,12 @@ function Reservation() {
     <section id="reservas" className="reservation-section bg-[#dcf8c6] px-5 py-24 text-[#1d1d22] md:px-10 md:py-32">
       <div className="mx-auto grid max-w-[1200px] gap-16 md:grid-cols-[.9fr_1.1fr] md:items-end">
         <div className="reveal">
-          <p className="eyebrow text-[#1d1d22]">04 — Reserva ahora</p>
+          <p className="eyebrow text-[#1d1d22]">05 — Reserva ahora</p>
           <h2 className="display mt-5 text-[clamp(3.6rem,8vw,8rem)] leading-[.76] tracking-[-.06em] text-[#1d1d22]">Tu auto en<br /><em className="text-[#1d1d22]">las mejores<br />manos.</em></h2>
         </div>
         <div className="reveal md:pb-2">
           <p className="max-w-[430px] text-lg leading-8 text-[#1d1d22]/80">La reserva se gestiona únicamente por WhatsApp. Envía tu solicitud y asegura tu hora sin hablar directamente con el estudio.</p>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 bg-[#137a3b] px-7 py-5 text-[11px] font-bold uppercase tracking-[.18em] text-[#ffffff] transition-colors hover:bg-[#0d6330]" data-testid="button-reserve-whatsapp">
+          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 rounded-xl bg-[#137a3b] px-7 py-5 text-[11px] font-bold uppercase tracking-[.18em] text-[#ffffff] transition-colors hover:bg-[#0d6330]" data-testid="button-reserve-whatsapp">
             Reservar ahora por WhatsApp <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
           </a>
           <p className="mt-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#1d1d22]/65"><Phone size={14} /> +56 9 6178 9412</p>
@@ -426,17 +426,17 @@ function Location() {
       <div className="map-grid relative min-h-[420px] overflow-hidden bg-[#dcf8c6]">
         <div className="absolute inset-0 bg-[#16a34a] opacity-[0.12]" />
         <a href={googleMapsUrl} target="_blank" rel="noreferrer" aria-label="Abrir ubicación en Google Maps" title="Abrir en Google Maps" className="focus-ring absolute left-[53%] top-[43%] z-10 -translate-x-1/2 -translate-y-1/2 rounded-full">
-          <div className="map-pin flex h-12 w-12 items-center justify-center rounded-full bg-[#005192] text-[#ffffff] shadow-lg"><MapPin size={21} /></div>
+          <div className="map-pin flex h-12 w-12 items-center justify-center rounded-full bg-[#15803d] text-[#ffffff] shadow-lg"><MapPin size={21} /></div>
           <span className="absolute left-7 top-7 whitespace-nowrap bg-[#121216] px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#f7fbff]">{brandName}</span>
         </a>
         <div className="absolute bottom-6 left-6 border-l-2 border-[#15803d] bg-[#f1f6fa]/95 px-4 py-3 text-[10px] uppercase tracking-[.14em] text-[#1d1d22]">Entrada de Arauco<br />Nivel -1</div>
       </div>
       <div className="location-details bg-[#121216] px-5 py-20 text-[#f7fbff] md:px-16 md:py-28">
-        <p className="eyebrow text-[#005192]">05 — Encuéntranos</p>
+        <p className="eyebrow text-[#005192]">06 — Encuéntranos</p>
         <h2 className="display mt-5 text-[clamp(3rem,6vw,6rem)] leading-[.8] tracking-[-.05em]">Por la entrada<br />de <em className="text-[#005192]" style={{ color: '#005192' }}>Arauco.</em></h2>
         <div className="mt-12 space-y-6 text-sm">
           <a href={googleMapsUrl} target="_blank" rel="noreferrer" aria-label="Abrir Mall Plaza de los Ríos, Valdivia en Google Maps" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#005192] text-[#005192]" data-testid="link-map">
-            <MapPin size={17} className="mt-0.5 text-[#005192]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
+            <MapPin size={17} className="mt-0.5 text-[#15803d]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
           </a>
           <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#005192]" data-testid="link-whatsapp-contact">
             <Phone size={17} className="text-[#005192]" /> +56 9 6178 9412 · WhatsApp
