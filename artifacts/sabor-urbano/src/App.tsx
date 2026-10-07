@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   Clock3,
@@ -9,23 +9,24 @@ import {
   ShieldCheck,
   Sparkles,
   X,
-} from 'lucide-react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ErrorBoundary } from '@/components/error-boundary';
-import { Toaster } from '@/components/ui/toaster';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import NotFound from '@/pages/not-found';
-import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
+} from "lucide-react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ErrorBoundary } from "@/components/error-boundary";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import NotFound from "@/pages/not-found";
+import { Route, Switch, useLocation, Router as WouterRouter } from "wouter";
 
 const queryClient = new QueryClient();
-const brandName = 'SANTIAGO SPA CAR WASH';
+const brandName = "SANTIAGO SPA CAR WASH";
 const brandImage =
-  'https://res.cloudinary.com/dsleqvjr/image/upload/v1788479431/ChatGPT_Image_12_jul_2026_21_06_42.png';
+  "https://res.cloudinary.com/dsleqvjr/image/upload/v1788479431/ChatGPT_Image_12_jul_2026_21_06_42.png";
 const blueCarWashImage = `${import.meta.env.BASE_URL}images/blue-car-wash.webp`;
 const foamDetailImage = `${import.meta.env.BASE_URL}images/foam-detail.webp`;
 const whatsappUrl =
-  'https://wa.me/56961789412?text=Hola%2C%20quiero%20reservar%20un%20servicio%20en%20SANTIAGO%20SPA%20CAR%20WASH.';
-const googleMapsUrl = 'https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia';
+  "https://wa.me/56961789412?text=Hola%2C%20quiero%20reservar%20un%20servicio%20en%20SANTIAGO%20SPA%20CAR%20WASH.";
+const googleMapsUrl =
+  "https://maps.google.com/?q=Mall+Plaza+de+los+Rios+Valdivia";
 
 type PriceRow = {
   name: string;
@@ -37,60 +38,138 @@ type PriceRow = {
 };
 
 const priceRows: PriceRow[] = [
-  { name: 'Lavado y Aspirado Full (Convenio con trabajadores del Mall Plaza De Los Ríos)', car: '$25.000', suv: '$25.000', category: 'Lavado', featured: true },
-  { 
-    name: 'Lavado y Aspirado Full' ,
-    car: '$25.000', 
-    suv: '$35.000', 
-    category: 'Lavado',
-    description: '(Shampoo, Renovador de neumatico, desengrasante al Aro, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado,                           Limpieavidrio)'
+  {
+    name: "Lavado y Aspirado Full (Convenio con trabajadores de Plaza de los Ríos)",
+    car: "$25.000",
+    suv: "$25.000",
+    category: "Lavado",
+    featured: true,
   },
-  { 
-    name: 'Lavado y Aspirado Full (CERA + SILICONA)' ,
-    car: '$35.000', 
-    suv: '$45.000', 
-    category: 'Lavado',
-    description: '(Shampoo, Cera, Renovador de neumatico, desengrasante al Aro, Silicona, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado,                           Limpieavidrio)'
+  {
+    name: "Lavado y Aspirado Full",
+    car: "$25.000",
+    suv: "$35.000",
+    category: "Lavado",
+    description:
+      "(Shampoo, Renovador de neumático, desengrasante al aro, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado, Limpiavidrios)",
   },
-  { name: 'Lavado Exterior', car: '$15.000', suv: '$20.000', category: 'Lavado' },
-  { name: 'Lavado Exterior + CERA', car: '$20.000', suv: '$30.000', category: 'Lavado' },
-  { 
-    name: 'Aspirado', 
-    car: '$15.000', 
-    suv: '$20.000', 
-    category: 'Interior',
-    description: ''
+  {
+    name: "Lavado y Aspirado Full (CERA + SILICONA)",
+    car: "$35.000",
+    suv: "$45.000",
+    category: "Lavado",
+    description:
+      "(Shampoo, Cera, Renovador de neumático, desengrasante al aro, Silicona, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado, Limpiavidrios)",
   },
-  { 
-    name: 'Aspirado + SILICONA', 
-    car: '$20.000', 
-    suv: '$30.000', 
-    category: 'Interior',
-    description: '(Silicona, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado, Limpieavidrio,)'
+  {
+    name: "Lavado Exterior",
+    car: "$15.000",
+    suv: "$20.000",
+    category: "Lavado",
   },
-  { name: 'Limpieza de Techo', car: '$25.000', suv: '$30.000', category: 'Interior' },
-  { name: 'Limpieza de Alfombra', car: '$40.000', suv: '$50.000', category: 'Interior' },
-  { name: 'Lavado Tapiz', car: '$60.000', suv: '$70.000', category: 'Interior', featured: true },
-  { name: 'Limpieza Humectación de Cuero', car: '$40.000', suv: '$50.000', category: 'Interior' },
-  { name: 'Pulido por Llanta', car: '$10.000', suv: '$15.000', category: 'Pulido' },
-  { name: 'Pulido Focos Delanteros + Sellante', car: '$30.000', suv: '$30.000', category: 'Pulido' },
-  { name: 'Pulido Carrocería', car: '$80.000', suv: '$100.000', category: 'Pulido', featured: true },
-  { name: 'Grabado de Patente (Ácido)', car: '$5.000', suv: '$5.000', category: 'Adicionales' },
-  { name: 'Grabado de Patente (Tallado)', car: '$8.000', suv: '$8.000', category: 'Adicionales' },
-  { name: 'Servicio de Ceramicado', car: '$200.000', suv: '$250.000', category: 'Protección', featured: true },
-  { name: 'Servicio Pre-Venta (Full + Pulido + Tapiz + Techo + Alfombra)', car: '$200.000', suv: '$250.000', category: 'Protección', featured: true },
+  {
+    name: "Lavado Exterior + CERA",
+    car: "$20.000",
+    suv: "$30.000",
+    category: "Lavado",
+  },
+  {
+    name: "Aspirado",
+    car: "$15.000",
+    suv: "$20.000",
+    category: "Interior",
+    description: "",
+  },
+  {
+    name: "Aspirado + SILICONA",
+    car: "$20.000",
+    suv: "$30.000",
+    category: "Interior",
+    description:
+      "(Silicona, Limpieza de tablero, Goma de auto, Maleta, Marco de puerta, Aspirado, Limpiavidrios)",
+  },
+  {
+    name: "Limpieza de Techo",
+    car: "$25.000",
+    suv: "$30.000",
+    category: "Interior",
+  },
+  {
+    name: "Limpieza de Alfombra",
+    car: "$40.000",
+    suv: "$50.000",
+    category: "Interior",
+  },
+  {
+    name: "Lavado Tapiz",
+    car: "$60.000",
+    suv: "$70.000",
+    category: "Interior",
+    featured: true,
+  },
+  {
+    name: "Limpieza Humectación de Cuero",
+    car: "$40.000",
+    suv: "$50.000",
+    category: "Interior",
+  },
+  {
+    name: "Pulido por Llanta",
+    car: "$10.000",
+    suv: "$15.000",
+    category: "Pulido",
+  },
+  {
+    name: "Pulido Focos Delanteros + Sellante",
+    car: "$30.000",
+    suv: "$30.000",
+    category: "Pulido",
+  },
+  {
+    name: "Pulido Carrocería",
+    car: "$80.000",
+    suv: "$100.000",
+    category: "Pulido",
+    featured: true,
+  },
+  {
+    name: "Grabado de Patente (Ácido)",
+    car: "$5.000",
+    suv: "$5.000",
+    category: "Adicionales",
+  },
+  {
+    name: "Grabado de Patente (Tallado)",
+    car: "$8.000",
+    suv: "$8.000",
+    category: "Adicionales",
+  },
+  {
+    name: "Servicio de Ceramicado",
+    car: "$200.000",
+    suv: "$250.000",
+    category: "Protección",
+    featured: true,
+  },
+  {
+    name: "Servicio Pre-Venta (Full + Pulido + Tapiz + Techo + Alfombra)",
+    car: "$200.000",
+    suv: "$250.000",
+    category: "Protección",
+    featured: true,
+  },
 ];
 
-const categories = ['Todos', 'Lavado', 'Interior', 'Pulido', 'Protección'];
+const categories = ["Todos", "Lavado", "Interior", "Pulido", "Protección"];
 
 function useReveal() {
   useEffect(() => {
-    const elements = document.querySelectorAll<HTMLElement>('.reveal');
+    const elements = document.querySelectorAll<HTMLElement>(".reveal");
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);
           }
         }),
@@ -106,33 +185,53 @@ function Header({ onBook }: { onBook: () => void }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 42);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const close = () => setOpen(false);
   const nav = [
-    { label: 'La experiencia', href: '#experiencia' },
-    { label: 'Tarifario', href: '#tarifario' },
-    { label: 'Compromisos', href: '#compromisos' },
-    { label: 'Resultados', href: '#trabajos' },
-    { label: 'Reserva', href: '#reservas' },
+    { label: "La experiencia", href: "#experiencia" },
+    { label: "Tarifario", href: "#tarifario" },
+    { label: "Compromisos", href: "#compromisos" },
+    { label: "Resultados", href: "#trabajos" },
+    { label: "Reserva", href: "#reservas" },
   ];
   return (
-    <header className={`nav-shell fixed inset-x-0 top-0 z-40 ${scrolled ? 'is-scrolled' : ''}`}>
+    <header
+      className={`nav-shell fixed inset-x-0 top-0 z-40 ${scrolled ? "is-scrolled" : ""}`}
+    >
       <div className="nav-inner mx-auto flex max-w-[1400px] items-center justify-between px-5 py-5 md:px-10 md:py-7">
-        <a href="#inicio" onClick={close} aria-label={brandName} className="focus-ring flex items-center gap-3" data-testid="link-home">
-          <span className="brand-logo-frame h-14 w-14 md:h-16 md:w-16" aria-hidden="true">
-            <img src={brandImage} alt="" className="brand-logo h-full w-full rounded-full object-contain p-1.5" />
+        <a
+          href="#inicio"
+          onClick={close}
+          aria-label={brandName}
+          className="focus-ring flex items-center gap-3"
+          data-testid="link-home"
+        >
+          <span
+            className="brand-logo-frame h-14 w-14 md:h-16 md:w-16"
+            aria-hidden="true"
+          >
+            <img
+              src={brandImage}
+              alt=""
+              className="brand-logo h-full w-full rounded-full object-contain p-1.5"
+            />
           </span>
-          <span className="hidden text-[11px] font-bold uppercase tracking-[.19em] sm:block">{brandName}</span>
+          <span className="hidden text-[11px] font-bold uppercase tracking-[.19em] sm:block">
+            {brandName}
+          </span>
         </a>
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Navegación principal">
+        <nav
+          className="hidden items-center gap-8 lg:flex"
+          aria-label="Navegación principal"
+        >
           {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
               className="focus-ring text-[10px] font-bold uppercase tracking-[.15em] text-[#f7fbff]/75 transition-colors hover:text-[#005192]"
-              data-testid={`link-nav-${item.label.toLowerCase().replaceAll(' ', '-')}`}
+              data-testid={`link-nav-${item.label.toLowerCase().replaceAll(" ", "-")}`}
             >
               {item.label}
             </a>
@@ -157,7 +256,7 @@ function Header({ onBook }: { onBook: () => void }) {
           </button>
           <button
             onClick={() => setOpen(!open)}
-            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={open}
             className="focus-ring p-2 lg:hidden"
             data-testid="button-mobile-menu"
@@ -174,12 +273,18 @@ function Header({ onBook }: { onBook: () => void }) {
               href={item.href}
               onClick={close}
               className="block border-b border-[#f7fbff]/10 py-4 text-sm uppercase tracking-[.13em]"
-              data-testid={`link-mobile-${item.label.toLowerCase().replaceAll(' ', '-')}`}
+              data-testid={`link-mobile-${item.label.toLowerCase().replaceAll(" ", "-")}`}
             >
               {item.label}
             </a>
           ))}
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 pt-5 text-sm text-[#005192]" data-testid="link-whatsapp-mobile">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 pt-5 text-sm text-[#005192]"
+            data-testid="link-whatsapp-mobile"
+          >
             <Phone size={15} /> Reservar por WhatsApp
           </a>
         </div>
@@ -190,22 +295,41 @@ function Header({ onBook }: { onBook: () => void }) {
 
 function Hero() {
   return (
-    <section id="inicio" className="hero-grain relative flex min-h-[760px] items-end overflow-hidden bg-[#121216] md:min-h-[850px]">
-      <img src={blueCarWashImage} alt="Automóvil azul cubierto de espuma durante un lavado profesional" className="hero-image absolute inset-0 h-full w-full object-cover opacity-80" fetchPriority="high" />
+    <section
+      id="inicio"
+      className="hero-grain relative flex min-h-[760px] items-end overflow-hidden bg-[#121216] md:min-h-[850px]"
+    >
+      <img
+        src={blueCarWashImage}
+        alt="Automóvil azul cubierto de espuma durante un lavado profesional"
+        className="hero-image absolute inset-0 h-full w-full object-cover opacity-80"
+        fetchPriority="high"
+      />
       <div className="absolute inset-0 bg-gradient-to-t from-[#121216] via-[#121216]/55 to-[#121216]/15" />
       <div className="absolute right-6 top-32 hidden text-right md:block">
-        <p className="text-[10px] font-bold uppercase tracking-[.22em] text-[#f7fbff]/55">Autolavado & detailing</p>
-        <p className="mt-2 text-[10px] uppercase tracking-[.2em] text-[#005192]">Valdivia · Nivel -1</p>
+        <p className="text-[10px] font-bold uppercase tracking-[.22em] text-[#f7fbff]/55">
+          Autolavado & detailing
+        </p>
+        <p className="mt-2 text-[10px] uppercase tracking-[.2em] text-[#005192]">
+          Valdivia · Nivel -1
+        </p>
       </div>
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 pb-20 pt-36 md:px-10 md:pb-28">
         <div className="hero-copy max-w-[930px] reveal">
-          <p className="eyebrow mb-6 text-[#005192]">Cuidado automotriz · Mall Plaza de los Ríos</p>
+          <p className="eyebrow mb-6 text-[#005192]">
+            Cuidado automotriz · Plaza de los Ríos
+          </p>
           <h1 className="display max-w-[930px] text-[clamp(4rem,12vw,11rem)] leading-[.78] tracking-[-.055em]">
-            ¡Tu auto en las<br /><em className="text-[#005192]" style={{ color: '#005192' }}>mejores manos!</em>
+            ¡Tu auto en las
+            <br />
+            <em className="text-[#005192]" style={{ color: "#005192" }}>
+              mejores manos!
+            </em>
           </h1>
           <div className="mt-10 flex flex-col gap-7 sm:flex-row sm:items-center">
             <p className="max-w-[330px] text-sm leading-6 text-[#f7fbff]/75">
-              Limpieza profesional, acabados impecables y la puntualidad que tu día necesita.
+              Limpieza profesional, acabados impecables y la puntualidad que tu
+              día necesita.
             </p>
             <a
               href={whatsappUrl}
@@ -214,7 +338,11 @@ function Hero() {
               className="group flex w-fit items-center gap-3 rounded-lg border border-[#005192] bg-transparent px-5 py-3.5 text-[11px] font-bold uppercase tracking-[.17em] text-[#f7fbff] transition-colors hover:bg-[#005192] hover:text-[#ffffff]"
               data-testid="button-reserve-hero"
             >
-              Reserva ahora <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              Reserva ahora{" "}
+              <ArrowRight
+                size={16}
+                className="transition-transform group-hover:translate-x-1"
+              />
             </a>
           </div>
         </div>
@@ -225,36 +353,94 @@ function Hero() {
 
 function Experience() {
   const points = [
-    { icon: Droplets, number: '01', title: 'Limpieza profesional', text: 'Productos adecuados y manos expertas para cuidar cada superficie de tu vehículo.' },
-    { icon: Sparkles, number: '02', title: 'Acabados impecables', text: 'Nos detenemos en los detalles que transforman una limpieza en una verdadera renovación.' },
-    { icon: ShieldCheck, number: '03', title: 'Rápido y puntual', text: 'Tu auto queda listo cuando lo necesitas, con un proceso claro y sin sorpresas.' },
+    {
+      icon: Droplets,
+      number: "01",
+      title: "Limpieza profesional",
+      text: "Productos adecuados y manos expertas para cuidar cada superficie de tu vehículo.",
+    },
+    {
+      icon: Sparkles,
+      number: "02",
+      title: "Acabados impecables",
+      text: "Nos detenemos en los detalles que transforman una limpieza en una verdadera renovación.",
+    },
+    {
+      icon: ShieldCheck,
+      number: "03",
+      title: "Rápido y puntual",
+      text: "Tu auto queda listo cuando lo necesitas, con un proceso claro y sin sorpresas.",
+    },
   ];
   return (
-    <section id="experiencia" className="bg-[#f1f6fa] px-5 py-24 text-[#1d1d22] md:px-10 md:py-36">
+    <section
+      id="experiencia"
+      className="bg-[#f1f6fa] px-5 py-24 text-[#1d1d22] md:px-10 md:py-36"
+    >
       <div className="mx-auto grid max-w-[1200px] gap-14 md:grid-cols-[.75fr_1.25fr] md:gap-24">
         <div className="reveal">
           <p className="eyebrow text-[#005192]">01 — Nuestra promesa</p>
-          <div className="blue-line mt-6" style={{ backgroundColor: '#005192' }} />
-          <p className="mt-10 text-[11px] font-bold uppercase tracking-[.18em] text-[#1d1d22]/55">Tu auto vuelve<br />a destacar</p>
+          <div
+            className="blue-line mt-6"
+            style={{ backgroundColor: "#005192" }}
+          />
+          <p className="mt-10 text-[11px] font-bold uppercase tracking-[.18em] text-[#1d1d22]/55">
+            Tu auto vuelve
+            <br />a destacar
+          </p>
         </div>
         <div className="reveal">
           <h2 className="display text-[clamp(3.2rem,6vw,6.3rem)] leading-[.84] tracking-[-.04em]">
-            Cuidamos cada<br />detalle. <em className="text-[#005192]" style={{ color: '#005192' }}>Se nota<br />a primera vista.</em>
+            Cuidamos cada
+            <br />
+            detalle.{" "}
+            <em className="text-[#005192]" style={{ color: "#005192" }}>
+              Se nota
+              <br />a primera vista.
+            </em>
           </h2>
           <p className="mt-9 max-w-[620px] text-lg leading-8 text-[#1d1d22]/65">
-            En {brandName} trabajamos para que tu vehículo se sienta nuevo otra vez. Estamos ubicados por la entrada de Arauco, en el Nivel -1 de Mall Plaza de los Ríos, Valdivia.
+            En {brandName} trabajamos para que tu vehículo se sienta nuevo otra
+            vez. Estamos ubicados por la entrada de Arauco, en el Nivel -1 de
+            Plaza de los Ríos, Valdivia.
           </p>
           <div className="mt-12 grid max-w-[600px] grid-cols-2 gap-8 border-t border-[#1d1d22]/15 pt-7 sm:grid-cols-3 text-[#005192]">
-            <div><p className="display border-t-[#005192] border-r-[#005192] border-b-[#005192] border-l-[#005192] text-4xl text-[#005192]">100%</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Satisfacción</p></div>
-            <div><p className="display border-t-[#005192] border-r-[#005192] border-b-[#005192] border-l-[#005192] text-4xl text-[#005192]">Nivel -1</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Mall Plaza</p></div>
-            <div><p className="display border-t-[#005192] border-r-[#005192] border-b-[#005192] border-l-[#005192] text-4xl text-[#005192]">Valdivia</p><p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">Estamos aquí</p></div>
+            <div>
+              <p className="display text-4xl text-[#005192]">100%</p>
+              <p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">
+                Satisfacción
+              </p>
+            </div>
+            <div>
+              <p className="display text-4xl text-[#005192]">Nivel -1</p>
+              <p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">
+                Plaza Ríos
+              </p>
+            </div>
+            <div>
+              <p className="display text-4xl text-[#005192]">Valdivia</p>
+              <p className="mt-2 text-[10px] uppercase tracking-[.16em] text-[#1d1d22]/50">
+                Estamos aquí
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div id="compromisos" className="mx-auto mt-24 grid max-w-[1200px] gap-4 md:grid-cols-3">
+      <div
+        id="compromisos"
+        className="mx-auto mt-24 grid max-w-[1200px] gap-4 md:grid-cols-3"
+      >
         {points.map(({ icon: Icon, number, title, text }, index) => (
-          <article key={number} className="reveal rounded-2xl border border-[#1d1d22]/10 bg-[#e4edf4] p-7 shadow-sm transition-transform duration-300 hover:-translate-y-1 md:p-9" style={{ transitionDelay: `${index * 90}ms` }} data-testid={`card-promise-${number}`}>
-            <div className="flex items-center justify-between text-[#005192]"><span className="display text-4xl text-[#005192]">{number}</span><Icon size={21} strokeWidth={1.5} className="text-[#005192]" /></div>
+          <article
+            key={number}
+            className="reveal rounded-2xl border border-[#1d1d22]/10 bg-[#e4edf4] p-7 shadow-sm transition-transform duration-300 hover:-translate-y-1 md:p-9"
+            style={{ transitionDelay: `${index * 90}ms` }}
+            data-testid={`card-promise-${number}`}
+          >
+            <div className="flex items-center justify-between text-[#005192]">
+              <span className="display text-4xl text-[#005192]">{number}</span>
+              <Icon size={21} strokeWidth={1.5} className="text-[#005192]" />
+            </div>
             <h3 className="display mt-14 text-3xl">{title}</h3>
             <p className="mt-3 text-sm leading-6 text-[#1d1d22]/60">{text}</p>
           </article>
@@ -265,18 +451,48 @@ function Experience() {
 }
 
 function Tariff() {
-  const [category, setCategory] = useState('Todos');
-  const filtered = useMemo(() => category === 'Todos' ? priceRows : priceRows.filter((row) => row.category === category), [category]);
+  const [category, setCategory] = useState("Todos");
+  const filtered = useMemo(
+    () =>
+      category === "Todos"
+        ? priceRows
+        : priceRows.filter((row) => row.category === category),
+    [category],
+  );
   return (
-    <section id="tarifario" className="bg-[#dce8f1] px-5 py-24 md:px-10 md:py-32">
+    <section
+      id="tarifario"
+      className="bg-[#dce8f1] px-5 py-24 md:px-10 md:py-32"
+    >
       <div className="mx-auto max-w-[1200px]">
         <div className="reveal flex flex-col justify-between gap-8 border-b border-[#1d1d22]/20 pb-10 md:flex-row md:items-end">
-          <div><p className="eyebrow text-[#005192]">02 — Tarifario mural</p><h2 className="display mt-5 text-[clamp(3.3rem,7vw,7rem)] leading-[.78] tracking-[-.05em]">Elige el<br /><em className="text-[#005192]">cuidado justo.</em></h2></div>
-          <p className="max-w-[320px] text-sm leading-6 text-[#1d1d22]/65">Precios transparentes para autos, camionetas y camionetas grandes / 4x4.</p>
+          <div>
+            <p className="eyebrow text-[#005192]">02 — Tarifario mural</p>
+            <h2 className="display mt-5 text-[clamp(3.3rem,7vw,7rem)] leading-[.78] tracking-[-.05em]">
+              Elige el
+              <br />
+              <em className="text-[#005192]">cuidado justo.</em>
+            </h2>
+          </div>
+          <p className="max-w-[320px] text-sm leading-6 text-[#1d1d22]/65">
+            Precios transparentes para autos, camionetas y camionetas grandes /
+            4x4.
+          </p>
         </div>
-        <div className="reveal mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Categorías del tarifario">
+        <div
+          className="reveal mt-8 flex flex-wrap gap-2"
+          role="tablist"
+          aria-label="Categorías del tarifario"
+        >
           {categories.map((item) => (
-          <button key={item} onClick={() => setCategory(item)} role="tab" aria-selected={category === item} className={`focus-ring rounded-full px-4 py-2.5 text-[10px] font-bold uppercase tracking-[.14em] transition-colors ${category === item ? 'bg-[#121216] text-[#f7fbff]' : 'border border-[#1d1d22]/25 text-[#1d1d22]/65 hover:border-[#1d1d22]'}`} data-testid={`button-price-${item.toLowerCase()}`}>
+            <button
+              key={item}
+              onClick={() => setCategory(item)}
+              role="tab"
+              aria-selected={category === item}
+              className={`focus-ring rounded-full px-4 py-2.5 text-[10px] font-bold uppercase tracking-[.14em] transition-colors ${category === item ? "bg-[#121216] text-[#f7fbff]" : "border border-[#1d1d22]/25 text-[#1d1d22]/65 hover:border-[#1d1d22]"}`}
+              data-testid={`button-price-${item.toLowerCase()}`}
+            >
               {item}
             </button>
           ))}
@@ -285,14 +501,24 @@ function Tariff() {
           <table className="tariff-table w-full border-collapse text-left">
             <thead className="bg-[#121216] text-[#f7fbff]">
               <tr>
-                <th className="px-5 py-5 text-[10px] font-bold uppercase tracking-[.14em]">Servicio</th>
-                <th className="px-5 py-5 text-right text-[10px] font-bold uppercase tracking-[.14em]">Autos / Camionetas</th>
-                <th className="px-5 py-5 text-right text-[10px] font-bold uppercase tracking-[.14em]">Camionetas grandes / 4x4</th>
+                <th className="px-5 py-5 text-[10px] font-bold uppercase tracking-[.14em]">
+                  Servicio
+                </th>
+                <th className="px-5 py-5 text-right text-[10px] font-bold uppercase tracking-[.14em]">
+                  Autos / Camionetas
+                </th>
+                <th className="px-5 py-5 text-right text-[10px] font-bold uppercase tracking-[.14em]">
+                  Camionetas grandes / 4x4
+                </th>
               </tr>
             </thead>
             <tbody className="text-[#1d1d22]">
               {filtered.map((row, index) => (
-                <tr key={row.name} className="price-row border-b border-[#1d1d22]/10 last:border-b-0" data-testid={`row-price-${index}`}>
+                <tr
+                  key={row.name}
+                  className="price-row border-b border-[#1d1d22]/10 last:border-b-0"
+                  data-testid={`row-price-${index}`}
+                >
                   <td className="px-5 py-5">
                     <div className="flex items-center gap-3">
                       <span aria-hidden="true" className="price-dot" />
@@ -300,19 +526,30 @@ function Tariff() {
                     </div>
                     <div className="ml-6 pl-0.5">
                       {row.description && (
-                        <p className="mt-1 text-xs text-[#1d1d22]/70">{row.description}</p>
+                        <p className="mt-1 text-xs text-[#1d1d22]/70">
+                          {row.description}
+                        </p>
                       )}
-                      <span className="mt-1 block text-[10px] uppercase tracking-[.12em] text-[#1d1d22]/40">{row.category}</span>
+                      <span className="mt-1 block text-[10px] uppercase tracking-[.12em] text-[#1d1d22]/40">
+                        {row.category}
+                      </span>
                     </div>
                   </td>
-                  <td className="px-5 py-5 text-right text-base font-semibold text-[#005192]">{row.car}</td>
-                  <td className="px-5 py-5 text-right text-base font-semibold text-[#005192]">{row.suv}</td>
+                  <td className="px-5 py-5 text-right text-base font-semibold text-[#005192]">
+                    {row.car}
+                  </td>
+                  <td className="px-5 py-5 text-right text-base font-semibold text-[#005192]">
+                    {row.suv}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-6 text-xs text-[#1d1d22]/55">El Servicio Pre-Venta incluye Full + Pulido + Tapiz + Techo + Alfombra.</p>
+        <p className="mt-6 text-xs text-[#1d1d22]/55">
+          El Servicio Pre-Venta incluye Full + Pulido + Tapiz + Techo +
+          Alfombra.
+        </p>
       </div>
     </section>
   );
@@ -324,17 +561,46 @@ function Feature() {
       <div className="mx-auto grid max-w-[1200px] gap-12 md:grid-cols-[.8fr_1.2fr] md:items-center">
         <div className="reveal">
           <p className="eyebrow text-[#005192]">03 — La diferencia</p>
-          <h2 className="display mt-5 text-[clamp(3.2rem,6vw,6.3rem)] leading-[.82] tracking-[-.05em]">Un acabado<br />que habla<br /><em className="text-[#005192]">por sí solo.</em></h2>
-          <p className="mt-8 max-w-[330px] text-sm leading-6 text-[#f7fbff]/65">Solicita tu servicio con nuestro recepcionista y asegura un acabado impecable para tu auto.</p>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[.17em] transition-colors hover:text-[#f7fbff] text-[#005192]" data-testid="button-feature-whatsapp">
-            Solicita tu servicio <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+          <h2 className="display mt-5 text-[clamp(3.2rem,6vw,6.3rem)] leading-[.82] tracking-[-.05em]">
+            Un acabado
+            <br />
+            que habla
+            <br />
+            <em className="text-[#005192]">por sí solo.</em>
+          </h2>
+          <p className="mt-8 max-w-[330px] text-sm leading-6 text-[#f7fbff]/65">
+            Solicita tu servicio con nuestro recepcionista y asegura un acabado
+            impecable para tu auto.
+          </p>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="group mt-9 flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[.17em] transition-colors hover:text-[#f7fbff] text-[#005192]"
+            data-testid="button-feature-whatsapp"
+          >
+            Solicita tu servicio{" "}
+            <ArrowRight
+              size={15}
+              className="transition-transform group-hover:translate-x-1"
+            />
           </a>
         </div>
         <div className="image-hover reveal relative min-h-[460px] overflow-hidden rounded-3xl border border-[#f7fbff]/10 shadow-xl md:min-h-[620px]">
-          <img src={foamDetailImage} alt="Detalle de automóvil azul cubierto de espuma en el proceso de lavado" loading="lazy" className="h-full w-full object-cover" />
+          <img
+            src={foamDetailImage}
+            alt="Detalle de automóvil azul cubierto de espuma en el proceso de lavado"
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#121216] p-7 pb-3 pt-12">
-            <p className="eyebrow text-[#005192]" style={{ color: '#005192' }}>Sellos de compromiso</p>
-            <p className="mt-3 max-w-[540px] text-2xl font-semibold leading-snug">Limpieza Profesional · Acabados Impecables · Rápido y Puntual · 100% Satisfacción</p>
+            <p className="eyebrow text-[#005192]" style={{ color: "#005192" }}>
+              Sellos de compromiso
+            </p>
+            <p className="mt-3 max-w-[540px] text-2xl font-semibold leading-snug">
+              Limpieza Profesional · Acabados Impecables · Rápido y Puntual ·
+              100% Satisfacción
+            </p>
           </div>
         </div>
       </div>
@@ -344,51 +610,71 @@ function Feature() {
 
 const serviceComparisons = [
   {
-    title: 'Pulido de focos',
+    title: "Pulido de focos",
     before: `${import.meta.env.BASE_URL}images/pulido-focos-antes.webp`,
     after: `${import.meta.env.BASE_URL}images/pulido-focos-despues.webp`,
-    alt: 'Pulido de focos delanteros, antes y después',
+    alt: "Pulido de focos delanteros, antes y después",
   },
   {
-    title: 'Reparación de abollón',
+    title: "Reparación de abollón",
     before: `${import.meta.env.BASE_URL}images/reparacion-abollon-antes.webp`,
     after: `${import.meta.env.BASE_URL}images/reparacion-abollon-despues.webp`,
-    alt: 'Reparación de abollón en la parte trasera del vehículo, antes y después',
+    alt: "Reparación de abollón en la parte trasera del vehículo, antes y después",
   },
 ];
 
 function ServiceGallery() {
   return (
-    <section id="trabajos" className="bg-[#e4edf4] px-5 py-24 md:px-10 md:py-32">
+    <section
+      id="trabajos"
+      className="bg-[#e4edf4] px-5 py-24 md:px-10 md:py-32"
+    >
       <div className="mx-auto max-w-[1200px]">
         <div className="reveal mb-10 flex flex-col justify-between gap-5 md:mb-14 md:flex-row md:items-end">
           <div>
             <p className="eyebrow text-[#005192]">04 — Resultados reales</p>
             <h2 className="display mt-4 max-w-[740px] text-[clamp(3rem,7vw,6rem)] leading-[.84] tracking-[-.05em]">
-              El cambio está<br /><span className="text-[#005192]">en los detalles.</span>
+              El cambio está
+              <br />
+              <span className="text-[#005192]">en los detalles.</span>
             </h2>
           </div>
           <p className="max-w-[330px] text-sm leading-6 text-[#1d1d22]/65">
-            Mira el resultado de algunos de nuestros trabajos de restauración y cuidado automotriz.
+            Mira el resultado de algunos de nuestros trabajos de restauración y
+            cuidado automotriz.
           </p>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {serviceComparisons.map((service, index) => (
-            <article key={service.title} className="reveal overflow-hidden rounded-2xl border border-[#1d1d22]/10 bg-[#f5f9fc] shadow-sm transition-shadow duration-300 hover:shadow-lg" style={{ transitionDelay: `${index * 100}ms` }}>
+            <article
+              key={service.title}
+              className="reveal overflow-hidden rounded-2xl border border-[#1d1d22]/10 bg-[#f5f9fc] shadow-sm transition-shadow duration-300 hover:shadow-lg"
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
               <div className="grid grid-cols-2 gap-1 bg-[#121216] p-1">
                 {[
-                  { label: 'Antes', src: service.before },
-                  { label: 'Después', src: service.after },
+                  { label: "Antes", src: service.before },
+                  { label: "Después", src: service.after },
                 ].map(({ label, src }) => (
-                  <figure key={label} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#121216]">
-                    <img src={src} alt={`${service.alt} — ${label.toLowerCase()}`} loading="lazy" className="h-full w-full object-cover" />
+                  <figure
+                    key={label}
+                    className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#121216]"
+                  >
+                    <img
+                      src={src}
+                      alt={`${service.alt} — ${label.toLowerCase()}`}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
                     <figcaption className="absolute left-3 top-3 bg-[#121216]/85 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[.16em] text-[#f7fbff]">
                       {label}
                     </figcaption>
                   </figure>
                 ))}
               </div>
-              <h3 className="display px-5 py-4 text-2xl text-[#005192] md:px-6 md:py-5">{service.title}</h3>
+              <h3 className="display px-5 py-4 text-2xl text-[#005192] md:px-6 md:py-5">
+                {service.title}
+              </h3>
             </article>
           ))}
         </div>
@@ -399,18 +685,44 @@ function ServiceGallery() {
 
 function Reservation() {
   return (
-    <section id="reservas" className="reservation-section bg-[#dcf8c6] px-5 py-24 text-[#1d1d22] md:px-10 md:py-32">
+    <section
+      id="reservas"
+      className="reservation-section bg-[#dcf8c6] px-5 py-24 text-[#1d1d22] md:px-10 md:py-32"
+    >
       <div className="mx-auto grid max-w-[1200px] gap-16 md:grid-cols-[.9fr_1.1fr] md:items-end">
         <div className="reveal">
           <p className="eyebrow text-[#1d1d22]">05 — Reserva ahora</p>
-          <h2 className="display mt-5 text-[clamp(3.6rem,8vw,8rem)] leading-[.76] tracking-[-.06em] text-[#1d1d22]">Tu auto en<br /><em className="text-[#1d1d22]">las mejores<br />manos.</em></h2>
+          <h2 className="display mt-5 text-[clamp(3.6rem,8vw,8rem)] leading-[.76] tracking-[-.06em] text-[#1d1d22]">
+            Tu auto en
+            <br />
+            <em className="text-[#1d1d22]">
+              las mejores
+              <br />
+              manos.
+            </em>
+          </h2>
         </div>
         <div className="reveal md:pb-2">
-          <p className="max-w-[430px] text-lg leading-8 text-[#1d1d22]/80">La reserva se gestiona únicamente por WhatsApp. Envía tu solicitud y asegura tu hora sin hablar directamente con el estudio.</p>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 rounded-xl bg-[#137a3b] px-7 py-5 text-[11px] font-bold uppercase tracking-[.18em] text-[#ffffff] transition-colors hover:bg-[#0d6330]" data-testid="button-reserve-whatsapp">
-            Reservar ahora por WhatsApp <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+          <p className="max-w-[430px] text-lg leading-8 text-[#1d1d22]/80">
+            La reserva se gestiona únicamente por WhatsApp. Envía tu solicitud y
+            asegura tu hora sin hablar directamente con el estudio.
+          </p>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="group mt-9 flex w-fit items-center gap-3 rounded-xl bg-[#137a3b] px-7 py-5 text-[11px] font-bold uppercase tracking-[.18em] text-[#ffffff] transition-colors hover:bg-[#0d6330]"
+            data-testid="button-reserve-whatsapp"
+          >
+            Reservar ahora por WhatsApp{" "}
+            <ArrowRight
+              size={17}
+              className="transition-transform group-hover:translate-x-1"
+            />
           </a>
-          <p className="mt-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#1d1d22]/65"><Phone size={14} /> +56 9 6178 9412</p>
+          <p className="mt-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#1d1d22]/65">
+            <Phone size={14} /> +56 9 6178 9412
+          </p>
         </div>
       </div>
     </section>
@@ -422,23 +734,70 @@ function Location() {
     <section id="ubicacion" className="grid md:grid-cols-2">
       <div className="map-grid relative min-h-[420px] overflow-hidden bg-[#dcf8c6]">
         <div className="absolute inset-0 bg-[#16a34a] opacity-[0.12]" />
-        <a href={googleMapsUrl} target="_blank" rel="noreferrer" aria-label="Abrir ubicación en Google Maps" title="Abrir en Google Maps" className="focus-ring absolute left-[53%] top-[43%] z-10 -translate-x-1/2 -translate-y-1/2 rounded-full">
-          <div className="map-pin flex h-12 w-12 items-center justify-center rounded-full bg-[#15803d] text-[#ffffff] shadow-lg"><MapPin size={21} /></div>
-          <span className="absolute left-7 top-7 whitespace-nowrap bg-[#121216] px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#f7fbff]">{brandName}</span>
+        <a
+          href={googleMapsUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Abrir ubicación en Google Maps"
+          title="Abrir en Google Maps"
+          className="focus-ring absolute left-[53%] top-[43%] z-10 -translate-x-1/2 -translate-y-1/2 rounded-full"
+        >
+          <div className="map-pin flex h-12 w-12 items-center justify-center rounded-full bg-[#15803d] text-[#ffffff] shadow-lg">
+            <MapPin size={21} />
+          </div>
+          <span className="absolute left-7 top-7 whitespace-nowrap bg-[#121216] px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#f7fbff]">
+            {brandName}
+          </span>
         </a>
-        <div className="absolute bottom-6 left-6 border-l-2 border-[#15803d] bg-[#f1f6fa]/95 px-4 py-3 text-[10px] uppercase tracking-[.14em] text-[#1d1d22]">Entrada de Arauco<br />Nivel -1</div>
+        <div className="absolute bottom-6 left-6 border-l-2 border-[#15803d] bg-[#f1f6fa]/95 px-4 py-3 text-[10px] uppercase tracking-[.14em] text-[#1d1d22]">
+          Entrada de Arauco
+          <br />
+          Nivel -1
+        </div>
       </div>
       <div className="location-details bg-[#121216] px-5 py-20 text-[#f7fbff] md:px-16 md:py-28">
         <p className="eyebrow text-[#005192]">06 — Encuéntranos</p>
-        <h2 className="display mt-5 text-[clamp(3rem,6vw,6rem)] leading-[.8] tracking-[-.05em]">Por la entrada<br />de <em className="text-[#005192]" style={{ color: '#005192' }}>Arauco.</em></h2>
+        <h2 className="display mt-5 text-[clamp(3rem,6vw,6rem)] leading-[.8] tracking-[-.05em]">
+          Por la entrada
+          <br />
+          de{" "}
+          <em className="text-[#005192]" style={{ color: "#005192" }}>
+            Arauco.
+          </em>
+        </h2>
         <div className="mt-12 space-y-6 text-sm">
-          <a href={googleMapsUrl} target="_blank" rel="noreferrer" aria-label="Abrir Mall Plaza de los Ríos, Valdivia en Google Maps" className="focus-ring flex items-start gap-4 transition-colors hover:text-[#005192] text-[#005192]" data-testid="link-map">
-            <MapPin size={17} className="mt-0.5 text-[#005192]" /><span className="text-[#f7fbff]">Mall Plaza de los Ríos<br />Valdivia · Entrada de Arauco · Nivel -1</span>
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Abrir Plaza de los Ríos, Valdivia en Google Maps"
+            className="focus-ring flex items-start gap-4 transition-colors hover:text-[#005192] text-[#005192]"
+            data-testid="link-map"
+          >
+            <MapPin size={17} className="mt-0.5 text-[#005192]" />
+            <span className="text-[#f7fbff]">
+              Plaza de los Ríos
+              <br />
+              Valdivia · Entrada de Arauco · Nivel -1
+            </span>
           </a>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="focus-ring flex items-center gap-4 transition-colors hover:text-[#005192]" data-testid="link-whatsapp-contact">
-            <Phone size={17} className="text-[#005192]" /> +56 9 6178 9412 · WhatsApp
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="focus-ring flex items-center gap-4 transition-colors hover:text-[#005192]"
+            data-testid="link-whatsapp-contact"
+          >
+            <Phone size={17} className="text-[#005192]" /> +56 9 6178 9412 ·
+            WhatsApp
           </a>
-          <p className="flex items-start gap-4"><Clock3 size={17} className="mt-0.5 text-[#005192]" /><span>Reserva tu hora por WhatsApp<br />y llega directo a nuestro Nivel -1</span></p>
+          <p className="flex items-start gap-4">
+            <Clock3 size={17} className="mt-0.5 text-[#005192]" />
+            <span>
+              Reserva tu hora por WhatsApp
+              <br />y llega directo a nuestro Nivel -1
+            </span>
+          </p>
         </div>
       </div>
     </section>
@@ -451,45 +810,101 @@ function Footer() {
       <div className="mx-auto grid max-w-[1200px] gap-12 md:grid-cols-[1fr_1fr_auto]">
         <div>
           <div className="flex items-center gap-3">
-            <span className="brand-logo-frame h-14 w-14 md:h-16 md:w-16" aria-hidden="true">
-              <img src={brandImage} alt="" className="brand-logo h-full w-full rounded-full object-contain p-1.5" />
+            <span
+              className="brand-logo-frame h-14 w-14 md:h-16 md:w-16"
+              aria-hidden="true"
+            >
+              <img
+                src={brandImage}
+                alt=""
+                className="brand-logo h-full w-full rounded-full object-contain p-1.5"
+              />
             </span>
-            <span className="text-[11px] font-bold uppercase tracking-[.19em]">{brandName}</span>
+            <span className="text-[11px] font-bold uppercase tracking-[.19em]">
+              {brandName}
+            </span>
           </div>
-          <p className="mt-5 max-w-[280px] text-sm leading-6 text-[#1d1d22]/55">Tu auto en las mejores manos. Limpieza profesional y acabados impecables en Valdivia.</p>
+          <p className="mt-5 max-w-[280px] text-sm leading-6 text-[#1d1d22]/55">
+            Tu auto en las mejores manos. Limpieza profesional y acabados
+            impecables en Valdivia.
+          </p>
         </div>
         <div>
           <p className="eyebrow text-[#005192]">Reserva directa</p>
-          <p className="mt-4 max-w-[290px] text-sm leading-6 text-[#1d1d22]/65">Las reservas se realizan únicamente por WhatsApp.</p>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-5 flex w-fit items-center gap-2 text-sm font-bold transition-colors hover:text-[#1d1d22] text-[#005192]" data-testid="link-footer-whatsapp"><Phone size={16} /> +56 9 6178 9412</a>
+          <p className="mt-4 max-w-[290px] text-sm leading-6 text-[#1d1d22]/65">
+            Las reservas se realizan únicamente por WhatsApp.
+          </p>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 flex w-fit items-center gap-2 text-sm font-bold transition-colors hover:text-[#1d1d22] text-[#005192]"
+            data-testid="link-footer-whatsapp"
+          >
+            <Phone size={16} /> +56 9 6178 9412
+          </a>
         </div>
         <div className="flex items-start gap-5 md:justify-self-end">
-          <a href="#inicio" className="focus-ring text-[10px] uppercase tracking-[.15em] text-[#1d1d22]/65 transition-colors hover:text-[#005192]" data-testid="link-back-top">Volver arriba ↑</a>
+          <a
+            href="#inicio"
+            className="focus-ring text-[10px] uppercase tracking-[.15em] text-[#1d1d22]/65 transition-colors hover:text-[#005192]"
+            data-testid="link-back-top"
+          >
+            Volver arriba ↑
+          </a>
         </div>
       </div>
-      <div className="mx-auto mt-16 flex max-w-[1200px] flex-col justify-between gap-3 border-t border-[#1d1d22]/15 pt-5 text-[10px] uppercase tracking-[.14em] text-[#1d1d22]/40 md:flex-row"><span>© 2026 {brandName}</span><span>Entrada de Arauco · Nivel -1 · Valdivia</span></div>
+      <div className="mx-auto mt-16 flex max-w-[1200px] flex-col justify-between gap-3 border-t border-[#1d1d22]/15 pt-5 text-[10px] uppercase tracking-[.14em] text-[#1d1d22]/40 md:flex-row">
+        <span>© 2026 {brandName}</span>
+        <span>Entrada de Arauco · Nivel -1 · Valdivia</span>
+      </div>
     </footer>
   );
 }
 
 function Home() {
   useReveal();
-  const scrollToBook = () => document.getElementById('reservas')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBook = () =>
+    document.getElementById("reservas")?.scrollIntoView({ behavior: "smooth" });
   return (
     <div className="carwash-page min-h-[100dvh]">
       <Header onBook={scrollToBook} />
-      <main><Hero /><Experience /><Tariff /><Feature /><ServiceGallery /><Reservation /><Location /></main>
+      <main>
+        <Hero />
+        <Experience />
+        <Tariff />
+        <Feature />
+        <ServiceGallery />
+        <Reservation />
+        <Location />
+      </main>
       <Footer />
     </div>
   );
 }
 
 function Router() {
-  return <ErrorBoundary resetKey={useLocation()[0]}><Switch><Route path="/" component={Home} /><Route component={NotFound} /></Switch></ErrorBoundary>;
+  return (
+    <ErrorBoundary resetKey={useLocation()[0]}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </ErrorBoundary>
+  );
 }
 
 function App() {
-  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><Router /></WouterRouter><Toaster /></TooltipProvider></QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+          <Router />
+        </WouterRouter>
+        <Toaster />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;
